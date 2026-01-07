@@ -26,4 +26,4 @@ Each task is organized **by date**, with its own folder and internal documentati
 | Date        | Task                      | Tech Stack               | Status      |
 | ----------- | ------------------------- | ------------------------ | ----------- |
 | 06-Jan-2026 | FastAPI CRUD with MongoDB | FastAPI, MongoDB, Pytest | ✅ Completed |
-| 07-Jan-2026 | TBD                       | TBD                      | ⏳ Planned   |
+| 07-Jan-2026 | FastAPI VectorDB          | FastAPI, Ollama, ChromaDB | ✅ Completed |
