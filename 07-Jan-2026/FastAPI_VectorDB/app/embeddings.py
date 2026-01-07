@@ -1,38 +1,34 @@
-import subprocess
-import json
+import requests
+from app.config import (
+    OLLAMA_BASE_URL,
+    OLLAMA_EMBED_MODEL,
+    OLLAMA_TIMEOUT,
+)
 
-def get_embedding(text: str):
-    process = subprocess.run(
-        [
-            "ollama",
-            "run",
-            "nomic-embed-text",
-            text,
-            "--format",
-            "json"
-        ],
-        capture_output=True,
-        text=True,
-        encoding="utf-8"
+
+def get_embedding(text: str) -> list[float]:
+    """
+    Generate embeddings using Ollama HTTP API.
+    Ollama runs as a private service.
+    """
+
+    url = f"{OLLAMA_BASE_URL}/api/embeddings"
+
+    payload = {
+        "model": OLLAMA_EMBED_MODEL,
+        "prompt": text,
+    }
+
+    response = requests.post(
+        url,
+        json=payload,
+        timeout=OLLAMA_TIMEOUT,
     )
+    response.raise_for_status()
 
-    if process.returncode != 0:
-        raise RuntimeError(process.stderr)
+    data = response.json()
 
-    output = process.stdout.strip()
+    if "embedding" not in data:
+        raise RuntimeError(f"Invalid Ollama response: {data}")
 
-    # 🔥 Ollama 0.13.5 returns a RAW LIST, not a dict
-    try:
-        data = json.loads(output)
-    except json.JSONDecodeError:
-        raise RuntimeError(f"Invalid JSON from Ollama: {output}")
-
-    # If it's already a list, that's the embedding
-    if isinstance(data, list):
-        return data
-
-    # Fallback for newer versions
-    if isinstance(data, dict) and "embedding" in data:
-        return data["embedding"]
-
-    raise RuntimeError(f"Unexpected Ollama output format: {data}")
+    return data["embedding"]
