@@ -1,53 +1,64 @@
 FastAPI Vector Database (Ollama)
-What this project does
+📌 Overview
 
 This project converts input text into vector embeddings using Ollama and stores them in a vector database exposed via a FastAPI REST API.
 
-It demonstrates the core building block behind semantic search and RAG systems:
+It demonstrates the core building block behind semantic search and Retrieval-Augmented Generation (RAG) systems:
 
-text → embedding → vector storage → retrieval
+Text → Embedding → Vector Storage → Retrieval
+
 
 The system is general-purpose and not tied to any specific dataset.
 
-How it works (high level)
+⚙️ How It Works (High Level)
 
-Client sends text via an API request
+A client sends text through a REST API request
 
 Ollama generates a numeric embedding for the text
 
-The embedding is stored along with metadata
+The embedding is stored along with metadata in a vector database
 
-Stored vectors can be inspected via debug endpoints
+Stored vectors can be inspected using debug endpoints
 
-Tech stack
+🛠 Tech Stack
 
-FastAPI – REST API
+FastAPI – REST API framework
 
-Ollama – local embedding generation (no API keys)
+Ollama – Local embedding generation (no API keys required)
 
-Vector Storage – in-memory / persistent (project dependent)
+Vector Storage – In-memory or persistent (project dependent)
 
 Python
 
-API flow
-Add a document (store vector)
+🔁 API Flow
+➕ Add a Document (Store Vector)
+
+Endpoint
 
 POST /add-document
+
+
+Request Body
 
 {
   "text": "FastAPI is a modern Python framework"
 }
 
 
-What happens
+What Happens
 
-Text is converted to a vector
+Input text is converted into a vector embedding
 
-Vector is stored in the database
+The vector is stored in the vector database
 
-Search using a query
+🔍 Search Using a Query
+
+Endpoint
 
 POST /search
+
+
+Request Body
 
 {
   "query": "Python API framework",
@@ -55,25 +66,37 @@ POST /search
 }
 
 
-What happens
+What Happens
 
-Query is embedded
+The query text is embedded
 
-Similar vectors are retrieved
+Similar vectors are retrieved using vector similarity
 
-Results are returned
+Matching documents are returned
 
-Debug endpoints
-
+🐞 Debug Endpoints
+View Stored Documents
 GET /debug/documents
-Shows stored documents with vector previews
 
+
+Shows stored documents
+
+Displays a preview of vector values
+
+View Stored Queries
 GET /debug/queries
+
+
 Shows stored query embeddings
 
-These endpoints prove that vectors are actually being created and stored.
+Displays a preview of vector values
 
-Run the project
+These endpoints confirm that vectors are being generated and stored correctly.
+
+▶️ Run the Project
+
+From the project root directory:
+
 uvicorn app.main:app --reload
 
 
@@ -81,14 +104,14 @@ Open Swagger UI:
 
 http://127.0.0.1:8000/docs
 
-Why this project matters
+🎯 Why This Project Matters
 
 This project demonstrates:
 
-Understanding of embeddings
+Practical understanding of embeddings
 
 Vector storage fundamentals
 
-API-based ML system design
+API-driven ML system design
 
-Foundations for RAG and semantic search systems
+Strong foundation for semantic search and RAG pipelines
