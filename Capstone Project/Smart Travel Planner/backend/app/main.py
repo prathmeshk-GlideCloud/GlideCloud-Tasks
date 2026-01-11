@@ -1,18 +1,53 @@
 from fastapi import FastAPI
+from typing import List
+
 from app.services.google_places import fetch_pois
-from app.services.distance_matrix import get_distance_matrix
+from app.planning.constraints import apply_hard_constraints
+from app.planning.scheduler import allocate_days
+from app.planning.validator import validate_itinerary
+from app.models.itinerary import Itinerary
 
-app = FastAPI(title="Smart Travel Planner - Day 2")
+# ✅ DEFINE APP FIRST
+app = FastAPI(title="Smart Travel Planner")
 
+# -----------------------------
+# Health Check
+# -----------------------------
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
-@app.get("/pois")
-def get_pois(city: str):
-    return fetch_pois(city)
-
-@app.post("/distance-matrix")
-def distance_matrix(city: str):
+# -----------------------------
+# Generate Itinerary (Day 3)
+# -----------------------------
+@app.post("/generate-itinerary")
+def generate_itinerary(
+    city: str,
+    days: int,
+    budget: float,
+    must_visit: List[str] = []
+):
     pois = fetch_pois(city)
-    return get_distance_matrix(pois)
+
+    # Step 1: Hard constraints
+    constraint_result = apply_hard_constraints(
+        pois=pois,
+        budget=budget,
+        must_visit=must_visit
+    )
+
+    if not constraint_result.is_feasible:
+        return constraint_result
+
+    # Step 2: Schedule days
+    day_plans = allocate_days(pois, days)
+
+    itinerary = Itinerary(
+        city=city,
+        days=days,
+        plans=day_plans,
+        total_cost=len(pois) * 200
+    )
+
+    # Step 3: Final validation
+    return validate_itinerary(itinerary)
