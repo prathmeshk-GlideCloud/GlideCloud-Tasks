@@ -1,0 +1,50 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env/
+.env.*
+
+# =========================
+# OS / Editor junk
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# =========================
+# Logs & cache
+# =========================
+*.log
+.cache/
+.pytest_cache/
+
+# =========================
+# Streamlit
+# =========================
+.streamlit/
+
+# =========================
+# Chroma / Vector DB (later)
+# =========================
+chroma/
+chromadb/
+vectorstore/
+
+# =========================
+# Node (if added later)
+# =========================
+node_modules/
+
+# =========================
+# Secrets
+# =========================
+*.key
+*.pem
