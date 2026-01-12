@@ -4,19 +4,24 @@ from typing import List, Dict
 from app.services.google_places import fetch_pois
 
 from app.planning.constraints import apply_hard_constraints
-from app.planning.scheduler import (
-    allocate_days,
-    generate_candidate_plans
-)
-from app.planning.validator import validate_itinerary
+from app.planning.scheduler import generate_candidate_plans
 from app.planning.scorer import score_plan
+from app.planning.validator import validate_itinerary
 
 from app.models.itinerary import Itinerary
+from app.models.constraint_result import ConstraintResult
+
+from app.api.explain import router as explain_router
+
 
 # -------------------------------------------------
 # FastAPI App
 # -------------------------------------------------
 app = FastAPI(title="Smart Travel Planner")
+
+# RAG explanation endpoint
+app.include_router(explain_router)
+
 
 # -------------------------------------------------
 # Health Check
@@ -25,8 +30,9 @@ app = FastAPI(title="Smart Travel Planner")
 def health():
     return {"status": "ok"}
 
+
 # -------------------------------------------------
-# Generate Itinerary (Day 4)
+# Generate Itinerary (Day 6 – Final)
 # -------------------------------------------------
 @app.post("/generate-itinerary")
 def generate_itinerary(
@@ -41,12 +47,13 @@ def generate_itinerary(
     }
 ):
     """
-    Day 4 responsibilities:
+    Deterministic planning pipeline:
     1. Fetch POIs
-    2. Enforce hard constraints (feasibility)
-    3. Generate multiple candidate plans
-    4. Score plans using soft constraints
-    5. Select best plan deterministically
+    2. Enforce hard constraints
+    3. Generate candidate plans
+    4. Score with soft constraints
+    5. Select best plan
+    6. Validate
     """
 
     # -----------------------------
@@ -57,20 +64,26 @@ def generate_itinerary(
     if not pois:
         return {
             "is_feasible": False,
-            "reasons": ["No POIs found for given city"]
+            "constraints": {
+                "is_feasible": False,
+                "reasons": ["No POIs found for given city"]
+            }
         }
 
     # -----------------------------
-    # Step 2: Hard Constraint Check
+    # Step 2: Hard Constraints
     # -----------------------------
-    constraint_result = apply_hard_constraints(
+    constraint_result: ConstraintResult = apply_hard_constraints(
         pois=pois,
         budget=budget,
         must_visit=must_visit
     )
 
     if not constraint_result.is_feasible:
-        return constraint_result
+        return {
+            "is_feasible": False,
+            "constraints": constraint_result.dict()
+        }
 
     # -----------------------------
     # Step 3: Generate Candidate Plans
@@ -84,7 +97,10 @@ def generate_itinerary(
     if not candidate_plans:
         return {
             "is_feasible": False,
-            "reasons": ["No feasible plans could be generated"]
+            "constraints": {
+                "is_feasible": False,
+                "reasons": ["No feasible candidate plans generated"]
+            }
         }
 
     # -----------------------------
@@ -92,14 +108,14 @@ def generate_itinerary(
     # -----------------------------
     scored_plans = []
 
-    for plans in candidate_plans:
+    for plan in candidate_plans:
         score = score_plan(
-            plans=plans,
+            plans=plan,
             interest_weights=interests
         )
-        scored_plans.append((score, plans))
+        scored_plans.append((score, plan))
 
-    best_score, best_plans = max(scored_plans, key=lambda x: x[0])
+    best_score, best_plan = max(scored_plans, key=lambda x: x[0])
 
     # -----------------------------
     # Step 5: Build Itinerary
@@ -107,7 +123,7 @@ def generate_itinerary(
     itinerary = Itinerary(
         city=city,
         days=days,
-        plans=best_plans,
+        plans=best_plan,
         total_cost=len(pois) * 200
     )
 
@@ -117,23 +133,17 @@ def generate_itinerary(
     validation_result = validate_itinerary(itinerary)
 
     if not validation_result.is_feasible:
-        return validation_result
+        return {
+            "is_feasible": False,
+            "constraints": validation_result.dict()
+        }
 
     # -----------------------------
-    # Day 4 Response (NO EXPLANATION YET)
+    # FINAL RESPONSE (USED BY STREAMLIT + RAG)
     # -----------------------------
     return {
         "is_feasible": True,
         "score": best_score,
-        "days": days,
-        "total_cost": itinerary.total_cost,
-        "plan_summary": [
-            {
-                "day": plan.day,
-                "num_pois": len(plan.pois),
-                "total_distance": plan.total_distance,
-                "total_travel_time": plan.total_travel_time
-            }
-            for plan in best_plans
-        ]
+        "itinerary": itinerary.dict(),
+        "constraints": constraint_result.dict()
     }
