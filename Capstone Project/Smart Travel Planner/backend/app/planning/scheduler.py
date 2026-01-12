@@ -27,3 +27,16 @@ def allocate_days(
         )
 
     return plans
+
+def generate_candidate_plans(
+    pois: List,
+    days: int,
+    variants: int = 3
+):
+    plans = []
+
+    for i in range(variants):
+        rotated = pois[i:] + pois[:i]
+        plans.append(allocate_days(rotated, days))
+
+    return plans
