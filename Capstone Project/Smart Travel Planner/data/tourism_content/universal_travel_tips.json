@@ -1,0 +1,416 @@
+{
+  "general_tips": [
+    {
+      "id": "tip_timing_museums",
+      "category": "timing",
+      "applicable_to": "museums",
+      "tip": "Visit museums within the first hour of opening to avoid crowds and have the best experience with popular exhibits.",
+      "confidence": "high",
+      "reasoning": "Early morning visits typically have 50-70% fewer visitors. Most tour groups arrive after 10 AM.",
+      "tags": ["museums", "timing", "crowds"]
+    },
+    {
+      "id": "tip_timing_landmarks",
+      "category": "timing",
+      "applicable_to": "landmarks",
+      "tip": "Visit popular landmarks either early morning (sunrise) or late evening (sunset) for best photos and fewer crowds.",
+      "confidence": "high",
+      "reasoning": "Golden hour provides best lighting. Most tourists visit midday. Temperature is also more comfortable.",
+      "tags": ["landmarks", "timing", "photography"]
+    },
+    {
+      "id": "tip_timing_restaurants",
+      "category": "timing",
+      "applicable_to": "restaurants",
+      "tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.",
+      "confidence": "high",
+      "reasoning": "Off-peak dining often means less crowded restaurants and more attention from staff.",
+      "tags": ["restaurants", "timing", "crowds"]
+    },
+    {
+      "id": "tip_booking_popular",
+      "category": "booking",
+      "applicable_to": "popular_attractions",
+      "tip": "Book tickets for popular attractions 2-4 weeks in advance, especially during peak season.",
+      "confidence": "high",
+      "reasoning": "Most major attractions have limited capacity. Online booking often includes skip-the-line benefits.",
+      "tags": ["booking", "planning", "tickets"]
+    },
+    {
+      "id": "tip_booking_online",
+      "category": "booking",
+      "applicable_to": "all_attractions",
+      "tip": "Purchase tickets online when available - often saves 30-60 minutes of queue time at the venue.",
+      "confidence": "high",
+      "reasoning": "Ticket counter lines can take 1-2 hours at popular sites. Many venues offer fast-track entry for online bookings.",
+      "tags": ["booking", "tickets", "time_saving"]
+    },
+    {
+      "id": "tip_budget_food_local",
+      "category": "budget",
+      "applicable_to": "food",
+      "tip": "Local markets and street food are typically 50-70% cheaper than restaurants in tourist areas while offering authentic experiences.",
+      "confidence": "high",
+      "reasoning": "Tourist area restaurants markup prices significantly. Local spots offer genuine cuisine at local prices.",
+      "tags": ["budget", "food", "authentic"]
+    },
+    {
+      "id": "tip_budget_food_timing",
+      "category": "budget",
+      "applicable_to": "food",
+      "tip": "Lunch menus and early bird specials can be 30-40% cheaper than dinner at the same restaurants.",
+      "confidence": "medium",
+      "reasoning": "Many restaurants offer lunch specials. Same quality food at lower daytime prices.",
+      "tags": ["budget", "food", "timing"]
+    },
+    {
+      "id": "tip_budget_free_activities",
+      "category": "budget",
+      "applicable_to": "activities",
+      "tip": "Many cities offer free walking tours (tip-based), free museum days (often first Sunday of month), and free public parks.",
+      "confidence": "high",
+      "reasoning": "Quality experiences don't always require payment. Research free alternatives.",
+      "tags": ["budget", "free", "activities"]
+    },
+    {
+      "id": "tip_budget_accommodation",
+      "category": "budget",
+      "applicable_to": "accommodation",
+      "tip": "Staying 2-3 metro stops outside the city center can save 30-50% on accommodation while maintaining easy access.",
+      "confidence": "medium",
+      "reasoning": "Accommodation prices drop significantly outside tourist zones. Good public transport makes this practical.",
+      "tags": ["budget", "accommodation", "location"]
+    },
+    {
+      "id": "tip_transport_passes",
+      "category": "transportation",
+      "applicable_to": "public_transport",
+      "tip": "Multi-day public transport passes are usually cheaper than individual tickets if you'll use transport 3+ times per day.",
+      "confidence": "high",
+      "reasoning": "Day/week passes often break even after 3-4 trips. Offers unlimited travel convenience.",
+      "tags": ["transportation", "budget", "public_transport"]
+    },
+    {
+      "id": "tip_transport_walking",
+      "category": "transportation",
+      "applicable_to": "urban_exploration",
+      "tip": "Walking between nearby attractions (under 2km) saves money and lets you discover hidden gems along the way.",
+      "confidence": "high",
+      "reasoning": "Cities reveal their character in between major sites. Walking is free and healthy.",
+      "tags": ["transportation", "walking", "exploration"]
+    },
+    {
+      "id": "tip_transport_rush_hour",
+      "category": "transportation",
+      "applicable_to": "public_transport",
+      "tip": "Avoid traveling during rush hours (7-9 AM, 5-7 PM) when possible - trains/buses are crowded and slower.",
+      "confidence": "high",
+      "reasoning": "Rush hour means packed vehicles, longer travel times, and uncomfortable journeys.",
+      "tags": ["transportation", "timing", "comfort"]
+    },
+    {
+      "id": "tip_safety_valuables",
+      "category": "safety",
+      "applicable_to": "all_destinations",
+      "tip": "Keep valuables in front pockets or inside jacket pockets, especially in crowded tourist areas and public transport.",
+      "confidence": "high",
+      "reasoning": "Pickpockets target back pockets and loose bags in crowded areas.",
+      "tags": ["safety", "security", "pickpockets"]
+    },
+    {
+      "id": "tip_safety_copies",
+      "category": "safety",
+      "applicable_to": "all_destinations",
+      "tip": "Keep digital and physical copies of important documents (passport, insurance, bookings) separate from originals.",
+      "confidence": "high",
+      "reasoning": "Losing documents can ruin a trip. Backups enable quick recovery and replacement.",
+      "tags": ["safety", "documents", "preparation"]
+    },
+    {
+      "id": "tip_cultural_greetings",
+      "category": "cultural",
+      "applicable_to": "non_english_destinations",
+      "tip": "Learn basic greetings (hello, thank you, please) in the local language - locals greatly appreciate the effort.",
+      "confidence": "high",
+      "reasoning": "Shows respect and often leads to better service and friendly interactions.",
+      "tags": ["cultural", "language", "respect"]
+    },
+    {
+      "id": "tip_cultural_dress",
+      "category": "cultural",
+      "applicable_to": "religious_sites",
+      "tip": "Research dress codes for religious sites - carry a scarf/shawl for covering shoulders/head when required.",
+      "confidence": "high",
+      "reasoning": "Many religious sites enforce dress codes. Being prepared avoids disappointment.",
+      "tags": ["cultural", "dress_code", "religious_sites"]
+    },
+    {
+      "id": "tip_planning_balance",
+      "category": "planning",
+      "applicable_to": "itinerary",
+      "tip": "Balance high-energy activities with relaxing ones to avoid burnout. Don't over-schedule - leave buffer time.",
+      "confidence": "high",
+      "reasoning": "Travel fatigue is real. Rushed itineraries reduce enjoyment. Flexibility allows spontaneity.",
+      "tags": ["planning", "pacing", "balance"]
+    },
+    {
+      "id": "tip_planning_buffer",
+      "category": "planning",
+      "applicable_to": "itinerary",
+      "tip": "Add 20-30 minute buffer between activities for unexpected delays, bathroom breaks, and spontaneous discoveries.",
+      "confidence": "high",
+      "reasoning": "Things rarely go exactly as planned. Buffers reduce stress and allow flexibility.",
+      "tags": ["planning", "timing", "flexibility"]
+    },
+    {
+      "id": "tip_planning_weather",
+      "category": "planning",
+      "applicable_to": "itinerary",
+      "tip": "Have indoor backup options (museums, shopping malls, cafes) planned for unexpected bad weather.",
+      "confidence": "medium",
+      "reasoning": "Weather changes can disrupt outdoor plans. Indoor alternatives save the day.",
+      "tags": ["planning", "weather", "backup_plans"]
+    },
+    {
+      "id": "tip_distance_daily_limit",
+      "category": "distance",
+      "applicable_to": "planning",
+      "tip": "Limit daily travel to 30-50km in cities to avoid spending too much time in transit.",
+      "confidence": "medium",
+      "reasoning": "Excessive travel time reduces actual activity time and causes fatigue.",
+      "tags": ["distance", "planning", "efficiency"]
+    },
+    {
+      "id": "tip_distance_clustering",
+      "category": "distance",
+      "applicable_to": "planning",
+      "tip": "Group nearby attractions together on the same day to minimize backtracking and travel time.",
+      "confidence": "high",
+      "reasoning": "Geographic clustering is more efficient. Reduces travel fatigue and costs.",
+      "tags": ["distance", "planning", "efficiency"]
+    },
+    {
+      "id": "tip_health_hydration",
+      "category": "health",
+      "applicable_to": "all_destinations",
+      "tip": "Carry a refillable water bottle and stay hydrated, especially when walking extensively in warm weather.",
+      "confidence": "high",
+      "reasoning": "Dehydration causes fatigue and health issues. Most cities have water fountains.",
+      "tags": ["health", "hydration", "wellness"]
+    },
+    {
+      "id": "tip_health_rest",
+      "category": "health",
+      "applicable_to": "all_destinations",
+      "tip": "Schedule at least one slow morning or afternoon every 2-3 days to rest and recharge.",
+      "confidence": "medium",
+      "reasoning": "Continuous activity leads to burnout. Rest improves overall trip enjoyment.",
+      "tags": ["health", "rest", "pacing"]
+    },
+    {
+      "id": "tip_photography_golden_hour",
+      "category": "photography",
+      "applicable_to": "landmarks",
+      "tip": "Best photography happens during golden hour (first/last hour of sunlight) for warm, dramatic lighting.",
+      "confidence": "high",
+      "reasoning": "Professional photographers universally recommend golden hour for best results.",
+      "tags": ["photography", "timing", "lighting"]
+    },
+    {
+      "id": "tip_photography_crowds",
+      "category": "photography",
+      "applicable_to": "popular_sites",
+      "tip": "For crowd-free photos at popular spots, arrive 30 minutes before opening time.",
+      "confidence": "high",
+      "reasoning": "Early arrival ensures empty backgrounds and better compositions.",
+      "tags": ["photography", "timing", "crowds"]
+    }
+  ],
+  "constraint_wisdom": [
+    {
+      "id": "wisdom_budget_allocation",
+      "constraint_type": "budget",
+      "range": "low",
+      "wisdom": "For low budgets: Prioritize free/cheap attractions (parks, walking tours), eat at local spots not tourist areas, use public transport exclusively.",
+      "allocation_guide": {
+        "accommodation": 0.27,
+        "food": 0.33,
+        "activities": 0.27,
+        "transport": 0.13
+      }
+    },
+    {
+      "id": "wisdom_budget_allocation_medium",
+      "constraint_type": "budget",
+      "range": "medium",
+      "wisdom": "For medium budgets: Mix free and paid attractions, balance nice restaurants with local eateries, use public transport with occasional taxis.",
+      "allocation_guide": {
+        "accommodation": 0.40,
+        "food": 0.30,
+        "activities": 0.20,
+        "transport": 0.10
+      }
+    },
+    {
+      "id": "wisdom_budget_allocation_high",
+      "constraint_type": "budget",
+      "range": "high",
+      "wisdom": "For high budgets: Access premium experiences, dine at recommended restaurants, use taxis/private transport for convenience.",
+      "allocation_guide": {
+        "accommodation": 0.40,
+        "food": 0.30,
+        "activities": 0.20,
+        "transport": 0.10
+      }
+    },
+    {
+      "id": "wisdom_time_management",
+      "constraint_type": "time",
+      "wisdom": "Allow 20-30 minutes travel time between activities in cities. Museums need 2-3 hours minimum. Quick visits rarely satisfy.",
+      "typical_durations": {
+        "museum": 2.5,
+        "landmark": 1.5,
+        "restaurant": 1.5,
+        "park": 1.0,
+        "religious_site": 1.0,
+        "shopping": 1.5,
+        "entertainment": 2.0
+      }
+    },
+    {
+      "id": "wisdom_interest_matching",
+      "constraint_type": "interests",
+      "wisdom": "Match activities to interests but avoid repetition - don't schedule 3 museums back-to-back even for culture lovers.",
+      "variety_guide": "No more than 2 similar activities consecutively. Mix different experience types."
+    },
+    {
+      "id": "wisdom_pace_relaxed",
+      "constraint_type": "pace",
+      "pace_type": "relaxed",
+      "wisdom": "Relaxed pace: 2-3 activities per day maximum, longer durations at each place, longer meal breaks, buffer time for spontaneity.",
+      "daily_activities": 3,
+      "buffer_multiplier": 1.5
+    },
+    {
+      "id": "wisdom_pace_moderate",
+      "constraint_type": "pace",
+      "pace_type": "moderate",
+      "wisdom": "Moderate pace: 4-5 activities per day, standard durations, balanced mix of major attractions and relaxation.",
+      "daily_activities": 4,
+      "buffer_multiplier": 1.2
+    },
+    {
+      "id": "wisdom_pace_packed",
+      "constraint_type": "pace",
+      "pace_type": "packed",
+      "wisdom": "Packed pace: 6-7 activities per day, efficient transitions, early starts, less downtime. Requires good fitness level.",
+      "daily_activities": 6,
+      "buffer_multiplier": 1.0
+    },
+    {
+      "id": "wisdom_must_visit_priority",
+      "constraint_type": "must_visit",
+      "wisdom": "Must-visit places should be scheduled on different days if possible, during their optimal times (research opening hours and crowd patterns).",
+      "scheduling_rule": "Distribute must-visits across different days. Schedule during recommended times."
+    }
+  ],
+  "activity_type_wisdom": [
+    {
+      "activity_type": "museum",
+      "best_practices": [
+        "Arrive within first hour of opening",
+        "Research must-see exhibits beforehand",
+        "Allow minimum 2-3 hours",
+        "Many offer free entry on specific days",
+        "Audio guides enhance experience",
+        "Wear comfortable shoes - lots of walking"
+      ],
+      "common_mistakes": [
+        "Trying to see everything (causes fatigue)",
+        "Visiting during peak afternoon hours",
+        "Not booking tickets in advance",
+        "Underestimating time needed"
+      ],
+      "typical_duration": 2.5
+    },
+    {
+      "activity_type": "landmark",
+      "best_practices": [
+        "Visit during golden hour for photos",
+        "Book skip-the-line tickets online",
+        "Research viewpoints and photo spots",
+        "Check if climb/elevator access available",
+        "Allow time for surrounding area exploration"
+      ],
+      "common_mistakes": [
+        "Only taking photos, not experiencing",
+        "Visiting at midday (harsh lighting, crowds)",
+        "Not researching best viewing angles"
+      ],
+      "typical_duration": 1.5
+    },
+    {
+      "activity_type": "restaurant",
+      "best_practices": [
+        "Book popular restaurants in advance",
+        "Eat during off-peak hours for better service",
+        "Try local specialties",
+        "Check reviews for tourist traps",
+        "Budget: lunch cheaper than dinner"
+      ],
+      "common_mistakes": [
+        "Eating in most touristy areas (overpriced)",
+        "Not checking dress codes for upscale places",
+        "Arriving at peak times without reservation"
+      ],
+      "typical_duration": 1.5
+    },
+    {
+      "activity_type": "park",
+      "best_practices": [
+        "Great for budget-friendly relaxation",
+        "Perfect between intensive activities",
+        "Good for picnics (buy from local shops)",
+        "Morning visits often less crowded",
+        "Check for special events/markets"
+      ],
+      "common_mistakes": [
+        "Skipping parks entirely (missing local life)",
+        "Not bringing water/snacks"
+      ],
+      "typical_duration": 1.0
+    },
+    {
+      "activity_type": "religious_site",
+      "best_practices": [
+        "Research and respect dress codes",
+        "Visit during non-service times if possible",
+        "Many are free entry",
+        "Photography rules vary - check signs",
+        "Maintain quiet, respectful behavior"
+      ],
+      "common_mistakes": [
+        "Inappropriate clothing (denied entry)",
+        "Disruptive behavior during services",
+        "Not researching cultural customs"
+      ],
+      "typical_duration": 1.0
+    },
+    {
+      "activity_type": "market",
+      "best_practices": [
+        "Visit in morning for freshest products",
+        "Bring cash (many don't accept cards)",
+        "Great for authentic local food",
+        "Perfect for budget travelers",
+        "Try free samples when offered"
+      ],
+      "common_mistakes": [
+        "Visiting late (best items gone)",
+        "Not bargaining at appropriate markets",
+        "Only looking, not trying local foods"
+      ],
+      "typical_duration": 1.5
+    }
+  ]
+}

@@ -1,9 +1,29 @@
-fastapi
-uvicorn
-pydantic
-python-dotenv
-requests
-pytest
-chromadb 
-requests
-streamlit
+# FastAPI & Server
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Data Validation
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Google Maps
+googlemaps==4.10.0
+
+# RAG & Vector DB - SIMPLIFIED (No external models needed)
+chromadb==0.4.22
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+
+# Testing
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-asyncio==0.21.1
+httpx==0.25.1
+
+# Code Quality
+black==23.11.0
+flake8==6.1.0
+pylint==3.0.2

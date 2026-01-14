@@ -1,0 +1,457 @@
+{
+  "status": "success",
+  "itinerary": {
+    "day_1": {
+      "date": "2026-01-21",
+      "activities": [
+        {
+          "sequence": 1,
+          "activity_name": "Eiffel Tower",
+          "place_id": "ChIJLU7jZClu5kcR4PcOOO6p3I0",
+          "category": "landmark",
+          "start_time": "09:00",
+          "end_time": "10:30",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.85837009999999,
+            "lng": 2.2944813
+          },
+          "address": "Av. Gustave Eiffel, Paris",
+          "cost": 25.0,
+          "rating": 4.7,
+          "travel_from_previous": {
+            "distance_km": 0,
+            "duration_minutes": 0,
+            "mode": "walking"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Landmark\n\nBest Practices:\n\u2022 Visit during golden hour for photos\n\u2022 Book skip-the-line tickets online\n\u2022 Research viewpoints and photo spots\n\u2022 Check if climb/elevator access available\n\u2022 Allow time for surrounding area exploration\n\nCommon Mistakes to Avoid:\n\u2022 Only taking photos, not experiencing\n\u2022 Visiting at midday (harsh lighting, crowds)\n\u2022 Not researching best viewing angles\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Visit popular landmarks either early morning (sunrise) or late evening (sunset) for best photos and fewer crowds.\n\nReasoning: Golden hour provides best lighting. Most tourists visit midday. Temperature is also more comfortable.\nApplicable to: landmarks\nConfidence: high",
+            "budget_tip": null
+          }
+        },
+        {
+          "sequence": 2,
+          "activity_name": "Caf\u00e9 les Deux Gares",
+          "place_id": "ChIJ9Rc2j3Ju5kcRQyqSw-rNPT0",
+          "category": "restaurant",
+          "start_time": "10:59",
+          "end_time": "12:29",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.8783091,
+            "lng": 2.3582792
+          },
+          "address": "1 Rue des Deux Gares, Paris",
+          "cost": 10.0,
+          "rating": 4.4,
+          "travel_from_previous": {
+            "distance_km": 6.432,
+            "duration_minutes": 29.15,
+            "mode": "walking"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Restaurant\n\nBest Practices:\n\u2022 Book popular restaurants in advance\n\u2022 Eat during off-peak hours for better service\n\u2022 Try local specialties\n\u2022 Check reviews for tourist traps\n\u2022 Budget: lunch cheaper than dinner\n\nCommon Mistakes to Avoid:\n\u2022 Eating in most touristy areas (overpriced)\n\u2022 Not checking dress codes for upscale places\n\u2022 Arriving at peak times without reservation\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.\n\nReasoning: Off-peak dining often means less crowded restaurants and more attention from staff.\nApplicable to: restaurants\nConfidence: high",
+            "budget_tip": null
+          }
+        },
+        {
+          "sequence": -1,
+          "activity_name": "Wanted Caf\u00e9 Paris",
+          "place_id": "ChIJb2t7nNtv5kcRDFzR9Rw_6qg",
+          "category": "restaurant",
+          "start_time": "12:41",
+          "end_time": "14:11",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.8715217,
+            "lng": 2.3573443
+          },
+          "address": "70 Rue du Faubourg Saint-Martin, Paris",
+          "cost": 25.0,
+          "rating": 4.7,
+          "travel_from_previous": {
+            "distance_km": 0,
+            "duration_minutes": 0,
+            "mode": "meal_break"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Restaurant\n\nBest Practices:\n\u2022 Book popular restaurants in advance\n\u2022 Eat during off-peak hours for better service\n\u2022 Try local specialties\n\u2022 Check reviews for tourist traps\n\u2022 Budget: lunch cheaper than dinner\n\nCommon Mistakes to Avoid:\n\u2022 Eating in most touristy areas (overpriced)\n\u2022 Not checking dress codes for upscale places\n\u2022 Arriving at peak times without reservation\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.\n\nReasoning: Off-peak dining often means less crowded restaurants and more attention from staff.\nApplicable to: restaurants\nConfidence: high",
+            "budget_tip": null
+          }
+        },
+        {
+          "sequence": 4,
+          "activity_name": "Wanted Caf\u00e9 Paris",
+          "place_id": "ChIJb2t7nNtv5kcRDFzR9Rw_6qg",
+          "category": "restaurant",
+          "start_time": "14:11",
+          "end_time": "14:11",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.8715217,
+            "lng": 2.3573443
+          },
+          "address": "70 Rue du Faubourg Saint-Martin, Paris",
+          "cost": 25.0,
+          "rating": 4.7,
+          "travel_from_previous": {
+            "distance_km": 0.861,
+            "duration_minutes": 12.0,
+            "mode": "walking"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Restaurant\n\nBest Practices:\n\u2022 Book popular restaurants in advance\n\u2022 Eat during off-peak hours for better service\n\u2022 Try local specialties\n\u2022 Check reviews for tourist traps\n\u2022 Budget: lunch cheaper than dinner\n\nCommon Mistakes to Avoid:\n\u2022 Eating in most touristy areas (overpriced)\n\u2022 Not checking dress codes for upscale places\n\u2022 Arriving at peak times without reservation\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.\n\nReasoning: Off-peak dining often means less crowded restaurants and more attention from staff.\nApplicable to: restaurants\nConfidence: high",
+            "budget_tip": null
+          }
+        }
+      ],
+      "summary": {
+        "total_activities": 4,
+        "total_cost": 85.0,
+        "total_distance_km": 7.293,
+        "start_time": "09:00",
+        "end_time": "14:11"
+      }
+    },
+    "day_2": {
+      "date": "2026-01-22",
+      "activities": [
+        {
+          "sequence": 1,
+          "activity_name": "Restaurant Bar Au Petit Tonneau Levallois",
+          "place_id": "ChIJtwpcuZ9v5kcRVrDWJZCLSc8",
+          "category": "restaurant",
+          "start_time": "09:00",
+          "end_time": "10:30",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.8933645,
+            "lng": 2.2824316
+          },
+          "address": "100 Rue Marius Aufan, Levallois-Perret",
+          "cost": 25.0,
+          "rating": 4.7,
+          "travel_from_previous": {
+            "distance_km": 0,
+            "duration_minutes": 0,
+            "mode": "walking"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Restaurant\n\nBest Practices:\n\u2022 Book popular restaurants in advance\n\u2022 Eat during off-peak hours for better service\n\u2022 Try local specialties\n\u2022 Check reviews for tourist traps\n\u2022 Budget: lunch cheaper than dinner\n\nCommon Mistakes to Avoid:\n\u2022 Eating in most touristy areas (overpriced)\n\u2022 Not checking dress codes for upscale places\n\u2022 Arriving at peak times without reservation\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.\n\nReasoning: Off-peak dining often means less crowded restaurants and more attention from staff.\nApplicable to: restaurants\nConfidence: high",
+            "budget_tip": null
+          }
+        },
+        {
+          "sequence": 2,
+          "activity_name": "Le Caf\u00e9 des Mus\u00e9es",
+          "place_id": "ChIJB4LuVABu5kcRwfzAvZQv1FM",
+          "category": "restaurant",
+          "start_time": "11:06",
+          "end_time": "12:36",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.85806299999999,
+            "lng": 2.3643307
+          },
+          "address": "49 Rue de Turenne, Paris",
+          "cost": 25.0,
+          "rating": 4.4,
+          "travel_from_previous": {
+            "distance_km": 11.081,
+            "duration_minutes": 36.083333333333336,
+            "mode": "transit"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Restaurant\n\nBest Practices:\n\u2022 Book popular restaurants in advance\n\u2022 Eat during off-peak hours for better service\n\u2022 Try local specialties\n\u2022 Check reviews for tourist traps\n\u2022 Budget: lunch cheaper than dinner\n\nCommon Mistakes to Avoid:\n\u2022 Eating in most touristy areas (overpriced)\n\u2022 Not checking dress codes for upscale places\n\u2022 Arriving at peak times without reservation\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.\n\nReasoning: Off-peak dining often means less crowded restaurants and more attention from staff.\nApplicable to: restaurants\nConfidence: high",
+            "budget_tip": null
+          }
+        },
+        {
+          "sequence": -1,
+          "activity_name": "Cafe Georgette Paris",
+          "place_id": "ChIJacrxZmVv5kcRXHF1elZ9404",
+          "category": "restaurant",
+          "start_time": "12:51",
+          "end_time": "14:21",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.8632145,
+            "lng": 2.352762
+          },
+          "address": "202 Rue Saint-Martin, Paris",
+          "cost": 25.0,
+          "rating": 4.1,
+          "travel_from_previous": {
+            "distance_km": 0,
+            "duration_minutes": 0,
+            "mode": "meal_break"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Restaurant\n\nBest Practices:\n\u2022 Book popular restaurants in advance\n\u2022 Eat during off-peak hours for better service\n\u2022 Try local specialties\n\u2022 Check reviews for tourist traps\n\u2022 Budget: lunch cheaper than dinner\n\nCommon Mistakes to Avoid:\n\u2022 Eating in most touristy areas (overpriced)\n\u2022 Not checking dress codes for upscale places\n\u2022 Arriving at peak times without reservation\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.\n\nReasoning: Off-peak dining often means less crowded restaurants and more attention from staff.\nApplicable to: restaurants\nConfidence: high",
+            "budget_tip": null
+          }
+        },
+        {
+          "sequence": 4,
+          "activity_name": "Paradox Museum Paris",
+          "place_id": "ChIJbQ7gSH5v5kcRb0CIrhxrsW0",
+          "category": "museum",
+          "start_time": "14:21",
+          "end_time": "15:21",
+          "duration_hours": 2.5,
+          "location": {
+            "lat": 48.8712124,
+            "lng": 2.3345432
+          },
+          "address": "38 Bd des Italiens, Paris",
+          "cost": 25.0,
+          "rating": 4.2,
+          "travel_from_previous": {
+            "distance_km": 3.449,
+            "duration_minutes": 15.8,
+            "mode": "walking"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Museum\n\nBest Practices:\n\u2022 Arrive within first hour of opening\n\u2022 Research must-see exhibits beforehand\n\u2022 Allow minimum 2-3 hours\n\u2022 Many offer free entry on specific days\n\u2022 Audio guides enhance experience\n\u2022 Wear comfortable shoes - lots of walking\n\nCommon Mistakes to Avoid:\n\u2022 Trying to see everything (causes fatigue)\n\u2022 Visiting during peak afternoon hours\n\u2022 Not booking tickets in advance\n\u2022 Underestimating time needed\n\nTypical Duration: 2.5 hours",
+            "timing_tip": "Visit museums within the first hour of opening to avoid crowds and have the best experience with popular exhibits.\n\nReasoning: Early morning visits typically have 50-70% fewer visitors. Most tour groups arrive after 10 AM.\nApplicable to: museums\nConfidence: high",
+            "budget_tip": null
+          }
+        }
+      ],
+      "summary": {
+        "total_activities": 4,
+        "total_cost": 100.0,
+        "total_distance_km": 14.53,
+        "start_time": "09:00",
+        "end_time": "15:21"
+      }
+    },
+    "day_3": {
+      "date": "2026-01-23",
+      "activities": [
+        {
+          "sequence": 1,
+          "activity_name": "Mus\u00e9e d'Orsay",
+          "place_id": "ChIJG5Qwtitu5kcR2CNEsYy9cdA",
+          "category": "museum",
+          "start_time": "09:00",
+          "end_time": "11:30",
+          "duration_hours": 2.5,
+          "location": {
+            "lat": 48.8599614,
+            "lng": 2.3265614
+          },
+          "address": "Esplanade Val\u00e9ry Giscard d'Estaing, Paris",
+          "cost": 25.0,
+          "rating": 4.8,
+          "travel_from_previous": {
+            "distance_km": 0,
+            "duration_minutes": 0,
+            "mode": "walking"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Museum\n\nBest Practices:\n\u2022 Arrive within first hour of opening\n\u2022 Research must-see exhibits beforehand\n\u2022 Allow minimum 2-3 hours\n\u2022 Many offer free entry on specific days\n\u2022 Audio guides enhance experience\n\u2022 Wear comfortable shoes - lots of walking\n\nCommon Mistakes to Avoid:\n\u2022 Trying to see everything (causes fatigue)\n\u2022 Visiting during peak afternoon hours\n\u2022 Not booking tickets in advance\n\u2022 Underestimating time needed\n\nTypical Duration: 2.5 hours",
+            "timing_tip": "Visit museums within the first hour of opening to avoid crowds and have the best experience with popular exhibits.\n\nReasoning: Early morning visits typically have 50-70% fewer visitors. Most tour groups arrive after 10 AM.\nApplicable to: museums\nConfidence: high",
+            "budget_tip": null
+          }
+        },
+        {
+          "sequence": -1,
+          "activity_name": "Assanabel",
+          "place_id": "ChIJHVApmw5u5kcRFxz4fuR4sWQ",
+          "category": "restaurant",
+          "start_time": "12:00",
+          "end_time": "13:30",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.8704692,
+            "lng": 2.3604933
+          },
+          "address": "6 Rue Pierre Chausson, Paris",
+          "cost": 25.0,
+          "rating": 4.8,
+          "travel_from_previous": {
+            "distance_km": 0,
+            "duration_minutes": 0,
+            "mode": "meal_break"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Restaurant\n\nBest Practices:\n\u2022 Book popular restaurants in advance\n\u2022 Eat during off-peak hours for better service\n\u2022 Try local specialties\n\u2022 Check reviews for tourist traps\n\u2022 Budget: lunch cheaper than dinner\n\nCommon Mistakes to Avoid:\n\u2022 Eating in most touristy areas (overpriced)\n\u2022 Not checking dress codes for upscale places\n\u2022 Arriving at peak times without reservation\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.\n\nReasoning: Off-peak dining often means less crowded restaurants and more attention from staff.\nApplicable to: restaurants\nConfidence: high",
+            "budget_tip": null
+          }
+        },
+        {
+          "sequence": 3,
+          "activity_name": "Assanabel",
+          "place_id": "ChIJHVApmw5u5kcRFxz4fuR4sWQ",
+          "category": "restaurant",
+          "start_time": "13:30",
+          "end_time": "13:30",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.8704692,
+            "lng": 2.3604933
+          },
+          "address": "6 Rue Pierre Chausson, Paris",
+          "cost": 25.0,
+          "rating": 4.8,
+          "travel_from_previous": {
+            "distance_km": 7.919,
+            "duration_minutes": 30.55,
+            "mode": "transit"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Restaurant\n\nBest Practices:\n\u2022 Book popular restaurants in advance\n\u2022 Eat during off-peak hours for better service\n\u2022 Try local specialties\n\u2022 Check reviews for tourist traps\n\u2022 Budget: lunch cheaper than dinner\n\nCommon Mistakes to Avoid:\n\u2022 Eating in most touristy areas (overpriced)\n\u2022 Not checking dress codes for upscale places\n\u2022 Arriving at peak times without reservation\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.\n\nReasoning: Off-peak dining often means less crowded restaurants and more attention from staff.\nApplicable to: restaurants\nConfidence: high",
+            "budget_tip": null
+          }
+        },
+        {
+          "sequence": 4,
+          "activity_name": "Caf\u00e9 Obrkof",
+          "place_id": "ChIJbaKkmE1t5kcR5MUbq5Q_tSs",
+          "category": "restaurant",
+          "start_time": "13:45",
+          "end_time": "15:15",
+          "duration_hours": 1.5,
+          "location": {
+            "lat": 48.8642385,
+            "lng": 2.3696652
+          },
+          "address": "41 Bd Voltaire, Paris",
+          "cost": 25.0,
+          "rating": 4.8,
+          "travel_from_previous": {
+            "distance_km": 1.065,
+            "duration_minutes": 15.166666666666666,
+            "mode": "walking"
+          },
+          "rag_insights": {
+            "general_tip": "Best Practices for Restaurant\n\nBest Practices:\n\u2022 Book popular restaurants in advance\n\u2022 Eat during off-peak hours for better service\n\u2022 Try local specialties\n\u2022 Check reviews for tourist traps\n\u2022 Budget: lunch cheaper than dinner\n\nCommon Mistakes to Avoid:\n\u2022 Eating in most touristy areas (overpriced)\n\u2022 Not checking dress codes for upscale places\n\u2022 Arriving at peak times without reservation\n\nTypical Duration: 1.5 hours",
+            "timing_tip": "Eat 1-2 hours before or after peak times (lunch: 12-2 PM, dinner: 7-9 PM) for shorter waits and sometimes better service.\n\nReasoning: Off-peak dining often means less crowded restaurants and more attention from staff.\nApplicable to: restaurants\nConfidence: high",
+            "budget_tip": null
+          }
+        }
+      ],
+      "summary": {
+        "total_activities": 4,
+        "total_cost": 100.0,
+        "total_distance_km": 8.984,
+        "start_time": "09:00",
+        "end_time": "15:15"
+      }
+    }
+  },
+  "validation": {
+    "all_satisfied": true,
+    "hard_constraints_satisfied": true,
+    "total_penalty": 200.0,
+    "constraint_details": [
+      {
+        "name": "Time Window",
+        "priority": 1,
+        "satisfied": true,
+        "penalty": 0.0
+      },
+      {
+        "name": "Budget",
+        "priority": 1,
+        "satisfied": true,
+        "penalty": 0.0
+      },
+      {
+        "name": "Must Visit",
+        "priority": 1,
+        "satisfied": true,
+        "penalty": 0.0
+      },
+      {
+        "name": "Daily Distance",
+        "priority": 2,
+        "satisfied": true,
+        "penalty": 0.0
+      },
+      {
+        "name": "Meal Times",
+        "priority": 2,
+        "satisfied": true,
+        "penalty": 40.0
+      },
+      {
+        "name": "Activity Variety",
+        "priority": 3,
+        "satisfied": true,
+        "penalty": 160.0
+      }
+    ]
+  },
+  "summary": {
+    "total_days": 3,
+    "total_activities": 12,
+    "total_cost": 285.0,
+    "budget_used_percentage": 63.3,
+    "total_distance_km": 30.81,
+    "category_distribution": {
+      "landmark": 1,
+      "restaurant": 9,
+      "museum": 2
+    },
+    "budget_remaining": 165.0
+  },
+  "travel_tips": [
+    {
+      "category": "budget",
+      "tip": "Constraint Wisdom - Budget\n\nFor medium budgets: Mix free and paid attractions, balance nice restaurants with local eateries, use public transport with occasional taxis.\n\nRecommended allocation: {\"accommodation\": 0.4, \"food\": 0.3, \"activities\": 0.2, \"transport\": 0.1}"
+    },
+    {
+      "category": "pacing",
+      "tip": "Constraint Wisdom - Pace\n\nModerate pace: 4-5 activities per day, standard durations, balanced mix of major attractions and relaxation."
+    },
+    {
+      "category": "timing",
+      "tip": "Visit popular landmarks either early morning (sunrise) or late evening (sunset) for best photos and fewer crowds.\n\nReasoning: Golden hour provides best lighting. Most tourists visit midday. Temperature is also more comfortable.\nApplicable to: landmarks\nConfidence: high"
+    },
+    {
+      "category": "timing",
+      "tip": "Visit museums within the first hour of opening to avoid crowds and have the best experience with popular exhibits.\n\nReasoning: Early morning visits typically have 50-70% fewer visitors. Most tour groups arrive after 10 AM.\nApplicable to: museums\nConfidence: high"
+    },
+    {
+      "category": "safety",
+      "tip": "Keep valuables in front pockets or inside jacket pockets, especially in crowded tourist areas and public transport.\n\nReasoning: Pickpockets target back pockets and loose bags in crowded areas.\nApplicable to: all_destinations\nConfidence: high"
+    },
+    {
+      "category": "safety",
+      "tip": "Keep digital and physical copies of important documents (passport, insurance, bookings) separate from originals.\n\nReasoning: Losing documents can ruin a trip. Backups enable quick recovery and replacement.\nApplicable to: all_destinations\nConfidence: high"
+    },
+    {
+      "category": "cultural",
+      "tip": "Learn basic greetings (hello, thank you, please) in the local language - locals greatly appreciate the effort.\n\nReasoning: Shows respect and often leads to better service and friendly interactions.\nApplicable to: non_english_destinations\nConfidence: high"
+    }
+  ],
+  "destination": "Paris, France",
+  "preferences_summary": {
+    "destination": "Paris, France",
+    "dates": "2026-01-21 to 2026-01-23",
+    "duration": "3 days",
+    "budget": "Moderate ($100-200/day)",
+    "total_budget": "$450.00",
+    "daily_budget": "$150.00",
+    "interests": [
+      "culture",
+      "food"
+    ],
+    "must_visit": [
+      "Eiffel Tower"
+    ],
+    "pace": "moderate",
+    "max_daily_distance": "50.0 km"
+  }
+}

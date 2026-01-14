@@ -1,50 +1,54 @@
-# =========================
+# .gitignore
 # Python
-# =========================
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-
-# Virtual environments
+*$py.class
+*.so
+.Python
+env/
 venv/
-.env/
-.env.*
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# =========================
-# OS / Editor junk
-# =========================
-.DS_Store
-Thumbs.db
+# Environment
+.env
+.env.local
+
+# IDEs
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# =========================
-# Logs & cache
-# =========================
-*.log
-.cache/
+# Testing
 .pytest_cache/
+.coverage
+htmlcov/
+.tox/
 
-# =========================
-# Streamlit
-# =========================
-.streamlit/
+# Data
+data/chromadb/*
+!data/chromadb/.gitkeep
+data/cache/*
+!data/cache/.gitkeep
 
-# =========================
-# Chroma / Vector DB (later)
-# =========================
-chroma/
-chromadb/
-vectorstore/
+# Logs
+*.log
 
-# =========================
-# Node (if added later)
-# =========================
-node_modules/
-
-# =========================
-# Secrets
-# =========================
-*.key
-*.pem
+# OS
+.DS_Store
+Thumbs.db
