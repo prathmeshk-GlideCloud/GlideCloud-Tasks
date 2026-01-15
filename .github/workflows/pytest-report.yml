@@ -1,1 +1,39 @@
-﻿[PASTE THE ENTIRE YAML FROM ABOVE HERE]
+name: Smart Travel Planner Tests
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Capstone Project/Smart Travel Planner/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        cd "Capstone Project/Smart Travel Planner/backend"
+        pip install -r requirements.txt
+        pip install pytest pytest-html pytest-cov
+    
+    - name: Run tests
+      run: |
+        cd "Capstone Project/Smart Travel Planner/backend"
+        pytest --html=report.html --self-contained-html --cov=app --cov-report=html
+    
+    - name: Upload test report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-reports
+        path: |
+          Capstone Project/Smart Travel Planner/backend/report.html
+          Capstone Project/Smart Travel Planner/backend/htmlcov/
