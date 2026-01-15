@@ -1,6 +1,3 @@
-"""
-Smart Travel Planner - FINAL POLISHED VERSION
-"""
 import streamlit as st
 from datetime import date, timedelta
 import json
