@@ -15,7 +15,7 @@ An AI-powered travel itinerary planner that uses constraint-based optimization, 
 - **🎯 Interest-Based Matching** - Activities tailored to your preferences
 - **⏰ Time Optimization** - Operating hours: 8 AM - 10 PM daily
 
-### Budget Features
+### Budget Features 
 - **Indian Rupee (₹) Support** - Optimized for Indian travel budgets
 - **Smart Cost Estimation** - Realistic pricing based on place types
 - **Percentage Allocation** - Automatic distribution across accommodation, food, activities, transport
