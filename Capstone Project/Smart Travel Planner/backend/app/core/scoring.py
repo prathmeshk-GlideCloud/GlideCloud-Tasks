@@ -85,6 +85,11 @@ class ActivityScorer:
         # 2. Interest match score (0-100 points)
         interest_score = self._calculate_interest_match(place)
         score += interest_score
+
+        # 🔽 Reduce museum dominance (selection only, NOT sequencing)
+        if 'museum' in place.types:
+            score -= 15
+
         
         # 3. Budget compatibility (0-50 points)
         budget_score = self._calculate_budget_score(place)

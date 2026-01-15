@@ -1,0 +1,35 @@
+﻿name: Pytest Report
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        pip install -r requirements.txt
+        pip install pytest pytest-html pytest-cov
+    
+    - name: Run pytest with HTML report
+      run: |
+        cd backend
+        pytest --html=report.html --self-contained-html --cov=app --cov-report=html
+    
+    - name: Upload test report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-report
+        path: |
+          backend/report.html
+          backend/htmlcov/

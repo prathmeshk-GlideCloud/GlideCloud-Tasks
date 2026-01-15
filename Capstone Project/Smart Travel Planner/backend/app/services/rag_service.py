@@ -231,14 +231,21 @@ class RAGService:
             'park': 'park',
             'church': 'religious_site',
             'place_of_worship': 'religious_site',
-            'shopping_mall': 'shopping',
+            'shopping_mall': 'shopping',      # ✅ Add this
+            'store': 'shopping',              # ✅ Add this
             'market': 'market'
         }
         
         normalized_type = type_mapping.get(activity_type, category)
         
-        # Get relevant tips
-        tips = self.get_tips_for_activity_type(normalized_type, n_results=2)
+        if normalized_type == 'shopping':
+            # Get shopping-specific tips, avoid food mentions
+            tips = self.get_tips_for_activity_type('shopping_mall', n_results=2)
+        elif normalized_type == 'restaurant':
+            tips = self.get_tips_for_activity_type('restaurant', n_results=2)
+        else:
+            tips = self.get_tips_for_activity_type(normalized_type, n_results=2)
+        
         timing_tips = self.get_timing_tips(normalized_type)
         
         enrichment = {

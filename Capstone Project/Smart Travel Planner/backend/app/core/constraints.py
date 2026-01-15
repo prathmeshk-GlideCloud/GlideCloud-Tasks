@@ -225,23 +225,20 @@ class ActivityVarietyConstraint(Constraint):
         return True
     
     def get_violation_score(self, schedule: List[Dict]) -> float:
-        """Penalty for too many similar activities in a row"""
         penalty = 0.0
-        
+
         for i in range(len(schedule) - 1):
-            current_category = schedule[i].get('category', '')
-            next_category = schedule[i + 1].get('category', '')
-            
-            # Penalty for same category consecutively
-            if current_category == next_category and current_category != 'restaurant':
-                penalty += 10.0
-            
-            # Extra penalty for 3+ in a row
+            c1 = schedule[i].get('category')
+            c2 = schedule[i + 1].get('category')
+
+            if c1 == c2 and c1 != 'restaurant':
+                penalty += 40.0   # was 10
+
             if i < len(schedule) - 2:
-                third_category = schedule[i + 2].get('category', '')
-                if current_category == next_category == third_category:
-                    penalty += 30.0
-        
+                c3 = schedule[i + 2].get('category')
+                if c1 == c2 == c3:
+                    penalty += 100.0  # strong discouragement
+
         return penalty
 
 
