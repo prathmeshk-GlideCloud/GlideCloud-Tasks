@@ -2,8 +2,6 @@
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 python-multipart==0.0.6
-numpy<2.0
-
 
 # Data Validation
 pydantic==2.5.0
@@ -13,7 +11,8 @@ pydantic-settings==2.1.0
 googlemaps==4.10.0
 
 # RAG & Vector DB - SIMPLIFIED (No external models needed)
-chromadb==0.4.22
+chromadb==0.4.24
+numpy<2.0
 
 # Utilities
 python-dotenv==1.0.0
