@@ -2,7 +2,7 @@
 Google Maps API integration service
 """
 import googlemaps
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional
 from datetime import datetime
 import logging
 
@@ -21,15 +21,7 @@ class GoogleMapsService:
         logger.info("Google Maps service initialized")
     
     def geocode_location(self, location: str) -> Optional[Location]:
-        """
-        Convert location string to coordinates
-        
-        Args:
-            location: Location string (e.g., "Paris, France")
-            
-        Returns:
-            Location object or None if not found
-        """
+        """Convert location string to coordinates"""
         try:
             result = self.client.geocode(location)
             if result:
@@ -47,20 +39,9 @@ class GoogleMapsService:
         radius: int = 10000,
         place_type: Optional[str] = None
     ) -> List[Place]:
-        """
-        Search for places using Google Places API
-        
-        Args:
-            query: Search query (e.g., "museums", "restaurants")
-            location: Location string or coordinates
-            radius: Search radius in meters
-            place_type: Type of place (e.g., "museum", "restaurant")
-            
-        Returns:
-            List of Place objects
-        """
+        """Search for places using Google Places API"""
         try:
-            # Geocode location first
+            # Geocode location
             if isinstance(location, str):
                 coords = self.geocode_location(location)
                 if not coords:
@@ -95,15 +76,7 @@ class GoogleMapsService:
             return []
     
     def get_place_details(self, place_id: str) -> Optional[Dict]:
-        """
-        Get detailed information about a place
-        
-        Args:
-            place_id: Google Place ID
-            
-        Returns:
-            Detailed place information or None
-        """
+        """Get detailed information about a place"""
         try:
             result = self.client.place(
                 place_id,
@@ -125,18 +98,7 @@ class GoogleMapsService:
         mode: str = "driving",
         departure_time: Optional[datetime] = None
     ) -> Optional[TravelInfo]:
-        """
-        Calculate travel time between two locations
-        
-        Args:
-            origin: Starting location
-            destination: Ending location
-            mode: Travel mode (driving, walking, transit, bicycling)
-            departure_time: When to depart (default: now)
-            
-        Returns:
-            TravelInfo object or None
-        """
+        """Calculate travel time between two locations"""
         try:
             if departure_time is None:
                 departure_time = datetime.now()
@@ -173,17 +135,7 @@ class GoogleMapsService:
         destinations: List[Location],
         mode: str = "driving"
     ) -> Optional[List[List[TravelInfo]]]:
-        """
-        Get distance matrix for multiple origin-destination pairs
-        
-        Args:
-            origins: List of origin locations
-            destinations: List of destination locations
-            mode: Travel mode
-            
-        Returns:
-            Matrix of TravelInfo objects or None
-        """
+        """Get distance matrix for multiple origin-destination pairs"""
         try:
             origin_coords = [(o.lat, o.lng) for o in origins]
             dest_coords = [(d.lat, d.lng) for d in destinations]
@@ -219,54 +171,13 @@ class GoogleMapsService:
             logger.error(f"Error getting distance matrix: {e}")
             return None
     
-    def _parse_place(self, place_data: Dict) -> Place:
-        """Parse Google Places API response into Place object"""
-        
-        location = Location(
-            lat=place_data['geometry']['location']['lat'],
-            lng=place_data['geometry']['location']['lng']
-        )
-        
-        # Parse opening hours if available
-        opening_hours = None
-        if 'opening_hours' in place_data:
-            opening_hours = OpeningHours(
-                open_now=place_data['opening_hours'].get('open_now', False),
-                weekday_text=place_data['opening_hours'].get('weekday_text')
-            )
-        
-        return Place(
-            place_id=place_data['place_id'],
-            name=place_data['name'],
-            formatted_address=place_data.get('vicinity'),
-            location=location,
-            rating=place_data.get('rating', 0.0),
-            user_ratings_total=place_data.get('user_ratings_total', 0),
-            types=place_data.get('types', []),
-            price_level=place_data.get('price_level', 2),
-            opening_hours=opening_hours,
-            photos=place_data.get('photos', []),
-            website=place_data.get('website')
-        )
-    
     def search_places_by_interest(
         self,
         interest: str,
         location: str,
         radius: int = 10000
     ) -> List[Place]:
-        """
-        Search places based on interest category
-        
-        Args:
-            interest: Interest category (culture, food, etc.)
-            location: Location string
-            radius: Search radius in meters
-            
-        Returns:
-            List of relevant places
-        """
-        # Map interests to place types and queries
+        """Search places based on interest category"""
         interest_mapping = {
             'culture': {
                 'types': ['museum', 'art_gallery', 'library'],
@@ -298,32 +209,58 @@ class GoogleMapsService:
             }
         }
         
-        all_places = []
         interest_lower = interest.lower()
         
-        if interest_lower in interest_mapping:
-            mapping = interest_mapping[interest_lower]
-            
-            # Search by type
-            for place_type in mapping['types']:
-                places = self.search_places(
-                    query=place_type,
-                    location=location,
-                    radius=radius,
-                    place_type=place_type
-                )
-                all_places.extend(places)
-            
-            # Remove duplicates based on place_id
-            seen_ids = set()
-            unique_places = []
-            for place in all_places:
-                if place.place_id not in seen_ids:
-                    seen_ids.add(place.place_id)
-                    unique_places.append(place)
-            
-            return unique_places
-        
-        else:
-            # Generic search
+        if interest_lower not in interest_mapping:
             return self.search_places(interest, location, radius)
+        
+        # Search by type
+        all_places = []
+        mapping = interest_mapping[interest_lower]
+        
+        for place_type in mapping['types']:
+            places = self.search_places(
+                query=place_type,
+                location=location,
+                radius=radius,
+                place_type=place_type
+            )
+            all_places.extend(places)
+        
+        # Remove duplicates
+        seen_ids = set()
+        unique_places = []
+        for place in all_places:
+            if place.place_id not in seen_ids:
+                seen_ids.add(place.place_id)
+                unique_places.append(place)
+        
+        return unique_places
+    
+    def _parse_place(self, place_data: Dict) -> Place:
+        """Parse Google Places API response into Place object"""
+        location = Location(
+            lat=place_data['geometry']['location']['lat'],
+            lng=place_data['geometry']['location']['lng']
+        )
+        
+        opening_hours = None
+        if 'opening_hours' in place_data:
+            opening_hours = OpeningHours(
+                open_now=place_data['opening_hours'].get('open_now', False),
+                weekday_text=place_data['opening_hours'].get('weekday_text')
+            )
+        
+        return Place(
+            place_id=place_data['place_id'],
+            name=place_data['name'],
+            formatted_address=place_data.get('vicinity'),
+            location=location,
+            rating=place_data.get('rating', 0.0),
+            user_ratings_total=place_data.get('user_ratings_total', 0),
+            types=place_data.get('types', []),
+            price_level=place_data.get('price_level', 2),
+            opening_hours=opening_hours,
+            photos=place_data.get('photos', []),
+            website=place_data.get('website')
+        )

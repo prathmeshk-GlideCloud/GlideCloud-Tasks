@@ -17,192 +17,25 @@ st.set_page_config(
 
 api = APIClient()
 
-# Enhanced CSS
-st.markdown("""
-<style>
-    .main-header {
-        font-size: 3rem;
-        font-weight: bold;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    .subtitle {
-        text-align: center;
-        color: #666;
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-    }
-    .activity-item {
-        background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
-        padding: 1.5rem;
-        border-radius: 12px;
-        margin: 1rem 0;
-        border-left: 5px solid #667eea;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.07);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .activity-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-    }
-    .activity-time {
-        font-size: 1.05rem;
-        font-weight: 600;
-        color: #667eea;
-        margin-bottom: 0.5rem;
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        background-color: #f0f3ff;
-        border-radius: 20px;
-    }
-    .activity-name {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #2c3e50;
-        margin-bottom: 0.7rem;
-        line-height: 1.4;
-    }
-    .activity-address {
-        color: #7f8c8d;
-        font-size: 0.95rem;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .activity-tips {
-        background-color: #f8f9ff;
-        padding: 1rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-        border-left: 3px solid #667eea;
-    }
-    .activity-tips-title {
-        color: #667eea;
-        font-weight: 600;
-        font-size: 0.95rem;
-        margin-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .activity-tips-content {
-        color: #555;
-        line-height: 1.7;
-        font-size: 0.9rem;
-    }
-    .activity-footer {
-        display: flex;
-        gap: 2rem;
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid #e0e0e0;
-        font-size: 0.95rem;
-    }
-    .activity-footer-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: #555;
-    }
-    .day-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-    }
-    .day-header h2 {
-        margin: 0;
-        font-size: 1.8rem;
-    }
-    .day-header p {
-        margin: 0.7rem 0 0 0;
-        opacity: 0.95;
-        font-size: 1.05rem;
-    }
-    .day-summary {
-        background: linear-gradient(135deg, #e8f4f8 0%, #f0f7ff 100%);
-        padding: 1.5rem;
-        border-radius: 12px;
-        margin-top: 2rem;
-        border: 2px solid #667eea;
-    }
-    .day-summary-title {
-        font-weight: 700;
-        color: #667eea;
-        margin-bottom: 0.7rem;
-        font-size: 1.1rem;
-    }
-    .day-summary-content {
-        color: #2c3e50;
-        line-height: 1.8;
-    }
-    .budget-breakdown {
-        background: linear-gradient(135deg, #f0f7ff 0%, #fff 100%);
-        padding: 2rem;
-        border-radius: 12px;
-        border: 2px solid #667eea;
-        margin: 1.5rem 0;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-    }
-    .budget-breakdown h3 {
-        margin-top: 0;
-        color: #667eea;
-        font-size: 1.5rem;
-    }
-    .metric-card {
-        background: white;
-        padding: 1rem;
-        border-radius: 8px;
-        border: 2px solid #e0e0e0;
-        text-align: center;
-    }
-    .meal-badge {
-        display: inline-block;
-        background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-        color: white;
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-left: 0.5rem;
-    }
-    .rating-stars {
-        color: #f39c12;
-        font-size: 1.1rem;
-    }
-    .cost-badge {
-        background-color: #e8f5e9;
-        color: #2e7d32;
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        font-weight: 600;
-        display: inline-block;
-    }
-    .cost-range {
-        color: #666;
-        font-size: 0.85rem;
-        margin-left: 0.3rem;
-    }
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 8px 8px 0 0;
-        padding: 0.5rem 1.5rem;
-        background-color: #f5f7fa;
-    }
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
-</style>
-""", unsafe_allow_html=True)
+# ← FIX: Add encoding='utf-8' to handle special characters
+try:
+    with open("assets/style.css", encoding='utf-8') as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+except UnicodeDecodeError:
+    # Fallback: try different encoding
+    with open("assets/style.css", encoding='latin-1') as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+except FileNotFoundError:
+    # If CSS file doesn't exist, use inline styles
+    st.markdown("""
+    <style>
+        .main-header { font-size: 3rem; font-weight: bold; text-align: center; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 2rem; }
+        .activity-item { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        .activity-name { font-size: 1.2rem; font-weight: bold; margin: 8px 0; }
+        .activity-tips { background: #f8f9fa; border-left: 4px solid #28a745; padding: 12px; border-radius: 6px; margin: 10px 0; }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Title
 st.markdown('<p class="main-header">✈️ Smart Travel Planner</p>', unsafe_allow_html=True)
@@ -336,9 +169,9 @@ with st.sidebar:
         ["relaxed", "moderate", "packed"],
         index=1,
         format_func=lambda x: {
-            "relaxed": "🧘 Relaxed (4 activities)",
-            "moderate": "🚶 Moderate (5 activities)",
-            "packed": "🏃 Packed (6 activities)"
+            "relaxed": "🧘 Relaxed (3 activities)",
+            "moderate": "🚶 Moderate (4 activities)",
+            "packed": "🏃 Packed (5 activities)"
         }[x],
         key="pace"
     )
@@ -427,7 +260,6 @@ if 'itinerary' in st.session_state:
                     activities = day_data.get('activities', [])
                     day_summary = day_data.get('summary', {})
                     
-                    # Day header
                     # Count activities separately from meals
                     activity_count = len([a for a in activities if a.get('category') != 'restaurant'])
                     meal_count = len([a for a in activities if a.get('category') == 'restaurant'])
@@ -443,102 +275,110 @@ if 'itinerary' in st.session_state:
                     </div>
                     """, unsafe_allow_html=True)
                     
-                # Activities
-                for activity in activities:
-                    # Get insights
-                    insights = activity.get('rag_insights', {})
-                    general_tip = insights.get('general_tip', '')
-                    
-                    # Clean tips
-                    clean_tips = []
-                    if general_tip:
-                        general_tip = general_tip.replace('**', '').replace('*', '')
-                        lines = [l.strip().lstrip('•-–—*').strip() for l in general_tip.split('\n')]
+                    # Activities
+                    for activity in activities:
+                        # Get intelligent tips (new format)
+                        insider_tips = activity.get('insider_tips', [])
+                        tip_confidence = activity.get('tip_confidence', 'medium')
                         
-                        for line in lines:
-                            skip = ['best practices', 'common mistakes', 'duration:', 'for restaurant', 'for museum']
-                            if len(line) > 15 and line[0].isupper() and not any(s in line.lower() for s in skip):
-                                clean_tips.append(line)
-                    
-                    if not clean_tips:
-                        clean_tips = ['Perfect spot to experience local culture and atmosphere']
-                    clean_tips = clean_tips[:3]
-                    
-                    # Meal badge
-                    meal_badge = ""
-                    if activity.get('category') == 'restaurant':
-                        hour = int(activity['start_time'].split(':')[0])
-                        if hour < 11:
-                            meal_badge = ' <span class="meal-badge">🍳 Breakfast</span>'
-                        elif hour < 17:
-                            meal_badge = ' <span class="meal-badge">🍽️ Lunch</span>'
+                        # Fallback to old format if needed
+                        if not insider_tips:
+                            insights = activity.get('rag_insights', {})
+                            general_tip = insights.get('general_tip', '')
+                            
+                            if general_tip:
+                                general_tip = general_tip.replace('**', '').replace('*', '')
+                                lines = [l.strip().lstrip('•-–—*').strip() for l in general_tip.split('\n')]
+                                insider_tips = [line for line in lines if len(line) > 15 and line[0].isupper()][:3]
+                        
+                        if not insider_tips:
+                            insider_tips = ['Perfect spot to experience local culture and atmosphere']
+                        
+                        # Limit tips
+                        insider_tips = insider_tips[:5]
+                        
+                        # Category
+                        categories = {
+                            'restaurant': 'Dining', 
+                            'museum': 'Museum', 
+                            'park': 'Nature & Parks',
+                            'historical': 'Historical Site', 
+                            'temple': 'Temple',
+                            'religious_site': 'Cultural Site',
+                            'shopping': 'Shopping', 
+                            'landmark': 'Landmark'
+                        }
+                        category_title = categories.get(activity.get('category'), 'Attraction')
+                        
+                        # Confidence badge emoji
+                        confidence_emoji = {
+                            'high': '✓',
+                            'medium': '◉',
+                            'low': '○'
+                        }.get(tip_confidence, '')
+                        
+                        # Cost
+                        cost = activity.get('cost', 0)
+                        cost_display = 'Free Entry' if cost == 0 else f'₹{cost:,.0f}'
+                        
+                        # Rating
+                        rating = activity.get('rating', 0)
+                        if rating:
+                            stars = '⭐' * int(rating)
+                            rating_display = f'{stars} {rating:.1f}'
                         else:
-                            meal_badge = ' <span class="meal-badge">🌙 Dinner</span>'
-                    
-                    # Category
-                    categories = {
-                        'restaurant': 'Dining', 'museum': 'Museum', 'park': 'Nature & Parks',
-                        'historical': 'Historical Site', 'religious_site': 'Cultural Site',
-                        'shopping': 'Shopping', 'landmark': 'Landmark'
-                    }
-                    category_title = categories.get(activity.get('category'), 'Attraction')
-                    
-                    # Cost
-                    cost = activity.get('cost', 0)
-                    cost_display = '<span class="cost-badge">Free Entry</span>' if cost == 0 else f'<span class="cost-badge">₹{cost:,.0f}</span>'
-                    
-                    # Rating
-                    rating = activity.get('rating', 0)
-                    if rating:
-                        stars = '⭐' * int(rating)
-                        rating_display = f'<span class="rating-stars">{stars}</span> {rating:.1f}'
-                    else:
-                        rating_display = 'Not rated'
-                    
-                    # Travel
-                    travel_mins = int(activity.get('travel_from_previous', {}).get('duration_minutes', 0))
-                    travel_display = 'Starting point' if travel_mins == 0 else f'{travel_mins} min travel'
-                    
-                    # Tips HTML
-                    tips_html = '<br>'.join([f'• {tip}' for tip in clean_tips])
-                    
-                    # Display card
-                    st.markdown(f"""
-                    <div class="activity-item">
-                        <div class="activity-time">
-                            🕐 {activity['start_time']} - {activity['end_time']} ({activity.get('duration_hours', 0):.1f}h)
-                        </div>
-                        <div class="activity-name">
-                            {activity['activity_name']}{meal_badge}
-                        </div>
-                        <div class="activity-address">
-                            <span>📍</span>
-                            <span>{activity.get('address', 'Address not available')}</span>
-                        </div>
-                        <div class="activity-tips">
-                            <div class="activity-tips-title">
-                                <span>💡</span>
-                                <span>Insider Tips for {category_title}</span>
-                            </div>
-                            <div class="activity-tips-content">
-                                {tips_html}
-                            </div>
-                        </div>
-                        <div class="activity-footer">
-                            <div class="activity-footer-item">
-                                <span>💵</span>
-                                <span>{cost_display}</span>
-                            </div>
-                            <div class="activity-footer-item">
-                                <span>{rating_display}</span>
-                            </div>
-                            <div class="activity-footer-item">
-                                <span>🚶</span>
-                                <span>{travel_display}</span>
-                            </div>
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                            rating_display = 'Not rated'
+                        
+                        # Travel
+                        travel_mins = int(activity.get('travel_from_previous', {}).get('duration_minutes', 0))
+                        travel_display = 'Starting point' if travel_mins == 0 else f'{travel_mins} min travel'
+                        
+                        # Meal indicator
+                        meal_indicator = ""
+                        if activity.get('category') == 'restaurant':
+                            hour = int(activity['start_time'].split(':')[0])
+                            if hour < 11:
+                                meal_indicator = ' 🍳 Breakfast'
+                            elif hour < 17:
+                                meal_indicator = ' 🍽️ Lunch'
+                            else:
+                                meal_indicator = ' 🌙 Dinner'
+                        
+                        # Clean tips for display - remove emoji markers
+                        clean_tips = []
+                        for tip in insider_tips:
+                            cleaned = tip.lstrip('⏰💎⚠️📍•-–—* ').strip()
+                            if cleaned:
+                                clean_tips.append(cleaned)
+                        
+                        # Display using st.write and containers
+                        with st.container():
+                            # Time and activity name
+                            st.markdown(f"**🕐 {activity['start_time']} - {activity['end_time']}** ({activity.get('duration_hours', 0):.1f}h)")
+                            st.markdown(f"### {activity['activity_name']}{meal_indicator}")
+                            
+                            # Address
+                            st.caption(f"📍 {activity.get('address', 'Address not available')}")
+                            
+                            # Tips section
+                            tip_header = f"💡 **Insider Tips for {category_title}**"
+                            if tip_confidence == 'high':
+                                tip_header += f" {confidence_emoji} *Verified*"
+                            
+                            with st.expander(tip_header, expanded=True):
+                                for tip in clean_tips:
+                                    st.write(f"• {tip}")
+                            
+                            # Footer info
+                            col1, col2, col3 = st.columns(3)
+                            with col1:
+                                st.write(f"💵 {cost_display}")
+                            with col2:
+                                st.write(f"{rating_display}")
+                            with col3:
+                                st.write(f"🚶 {travel_display}")
+                            
+                            st.markdown("---")
 
         
         # Download button

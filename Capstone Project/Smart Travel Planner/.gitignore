@@ -52,3 +52,5 @@ data/cache/*
 # OS
 .DS_Store
 Thumbs.db
+
+report.html

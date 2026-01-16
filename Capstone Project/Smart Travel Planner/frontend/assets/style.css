@@ -1,0 +1,285 @@
+.main-header {
+        font-size: 3rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    .activity-item {
+        background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1rem 0;
+        border-left: 5px solid #667eea;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .activity-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+    .activity-time {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #667eea;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background-color: #f0f3ff;
+        border-radius: 20px;
+    }
+    .activity-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 0.7rem;
+        line-height: 1.4;
+    }
+    .activity-address {
+        color: #7f8c8d;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    /* ==========================================
+       ENHANCED INTELLIGENT TIPS STYLING
+       ========================================== */
+    
+    .activity-tips {
+        background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+        padding: 1.2rem;
+        border-radius: 10px;
+        margin: 1rem 0;
+        border-left: 4px solid #28a745;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.1);
+    }
+    
+    .activity-tips-title {
+        color: #2c3e50;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .activity-tips-title span:first-child {
+        font-size: 1.2rem;
+    }
+    
+    .activity-tips-content {
+        color: #495057;
+        line-height: 1.9;
+        font-size: 0.92rem;
+    }
+    
+    /* Individual tip items */
+    .tip-item {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid #e9ecef;
+        position: relative;
+        padding-left: 1.5rem;
+    }
+    
+    .tip-item:before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #28a745;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    
+    .tip-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    
+    /* Special styling for tips with emojis */
+    .tip-item:first-child {
+        font-weight: 500;
+        color: #2c3e50;
+    }
+    
+    /* Confidence badges */
+    .confidence-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        vertical-align: middle;
+        letter-spacing: 0.3px;
+    }
+    
+    .confidence-badge.high {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .confidence-badge.medium {
+        background: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeaa7;
+    }
+    
+    .confidence-badge.low {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 1px solid #dee2e6;
+    }
+    
+    /* Highlight insider tips (those with 💎) */
+    .activity-tips-content div:has-text("💎") {
+        background: linear-gradient(135deg, #fffbea 0%, #fff9e6 100%);
+        padding: 0.8rem;
+        border-radius: 6px;
+        border-left: 3px solid #ffc107;
+        margin: 0.5rem 0;
+    }
+    
+    /* Highlight timing tips (those with ⏰) */
+    .activity-tips-content div:has-text("⏰") {
+        background: linear-gradient(135deg, #e7f3ff 0%, #f0f8ff 100%);
+        padding: 0.8rem;
+        border-radius: 6px;
+        border-left: 3px solid #0066cc;
+        margin: 0.5rem 0;
+        color: #0066cc;
+        font-weight: 500;
+    }
+    
+    /* Highlight warning tips (those with ⚠️) */
+    .activity-tips-content div:has-text("⚠️") {
+        background: linear-gradient(135deg, #fff3cd 0%, #fff9e6 100%);
+        padding: 0.8rem;
+        border-radius: 6px;
+        border-left: 3px solid #ff9800;
+        margin: 0.5rem 0;
+    }
+    
+    /* ==========================================
+       END INTELLIGENT TIPS STYLING
+       ========================================== */
+    
+    .activity-footer {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e0e0e0;
+        font-size: 0.95rem;
+    }
+    .activity-footer-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #555;
+    }
+    .day-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    .day-header h2 {
+        margin: 0;
+        font-size: 1.8rem;
+    }
+    .day-header p {
+        margin: 0.7rem 0 0 0;
+        opacity: 0.95;
+        font-size: 1.05rem;
+    }
+    .day-summary {
+        background: linear-gradient(135deg, #e8f4f8 0%, #f0f7ff 100%);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-top: 2rem;
+        border: 2px solid #667eea;
+    }
+    .day-summary-title {
+        font-weight: 700;
+        color: #667eea;
+        margin-bottom: 0.7rem;
+        font-size: 1.1rem;
+    }
+    .day-summary-content {
+        color: #2c3e50;
+        line-height: 1.8;
+    }
+    .budget-breakdown {
+        background: linear-gradient(135deg, #f0f7ff 0%, #fff 100%);
+        padding: 2rem;
+        border-radius: 12px;
+        border: 2px solid #667eea;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    }
+    .budget-breakdown h3 {
+        margin-top: 0;
+        color: #667eea;
+        font-size: 1.5rem;
+    }
+    .metric-card {
+        background: white;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 2px solid #e0e0e0;
+        text-align: center;
+    }
+    .meal-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+    .rating-stars {
+        color: #f39c12;
+        font-size: 1.1rem;
+    }
+    .cost-badge {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+    }
+    .cost-range {
+        color: #666;
+        font-size: 0.85rem;
+        margin-left: 0.3rem;
+    }
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px 8px 0 0;
+        padding: 0.5rem 1.5rem;
+        background-color: #f5f7fa;
+    }
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }

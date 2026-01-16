@@ -1,10 +1,8 @@
 """
-RAG Service - Using ChromaDB default embeddings (no external API needed)
+Enhanced RAG Service - Context-Aware Travel Tips
 """
 import chromadb
-from chromadb.config import Settings
 from typing import List, Dict, Optional, Any
-import json
 import logging
 from pathlib import Path
 
@@ -14,332 +12,469 @@ from app.models.user_input import BudgetRange, PacePreference
 logger = logging.getLogger(__name__)
 
 
-class RAGService:
-    """
-    Universal RAG service using ChromaDB's built-in embeddings
-    No external API or model downloads required
-    """
+class IntelligentRAGService:
+    """Enhanced RAG service with context-aware tip generation"""
     
     def __init__(self):
         """Initialize RAG service"""
-        # Setup ChromaDB
         db_path = Path(settings.CHROMADB_PATH)
         db_path.mkdir(parents=True, exist_ok=True)
         
         self.client = chromadb.PersistentClient(path=str(db_path))
-        
-        # Use ChromaDB's default embedding function (no API key needed!)
-        logger.info("Using ChromaDB built-in embedding function")
-        
-        # Get or create collection
         self.collection = self.client.get_or_create_collection(
-            name="universal_travel_wisdom",
+            name="intelligent_travel_tips",
             metadata={"hnsw:space": "cosine"}
         )
         
-        logger.info("RAG service initialized successfully")
+        self.place_knowledge = self._load_place_knowledge()
+        logger.info("Intelligent RAG service initialized")
     
-    def add_documents(self, documents: List[Dict[str, Any]]) -> int:
-        """
-        Add documents to the knowledge base
-        ChromaDB automatically generates embeddings
-        """
-        if not documents:
-            return 0
-        
-        texts = []
-        metadatas = []
-        ids = []
-        
-        for i, doc in enumerate(documents):
-            if 'text' not in doc:
-                logger.warning(f"Document {i} missing 'text' field, skipping")
-                continue
-            
-            texts.append(doc['text'])
-            metadatas.append(doc.get('metadata', {}))
-            ids.append(doc.get('id', f"doc_{i}_{hash(doc['text'])}"))
-        
-        if not texts:
-            return 0
-        
-        # Add to collection - ChromaDB auto-generates embeddings
-        logger.info(f"Adding {len(texts)} documents (generating embeddings automatically)...")
-        
-        self.collection.add(
-            documents=texts,
-            metadatas=metadatas,
-            ids=ids
-        )
-        
-        logger.info(f"Added {len(texts)} documents to knowledge base")
-        return len(texts)
-    
-    def query(
-        self,
-        query_text: str,
-        n_results: int = 5,
-        where: Optional[Dict] = None
-    ) -> List[Dict[str, Any]]:
-        """Query the knowledge base"""
-        
-        # Query collection - ChromaDB handles embeddings automatically
-        results = self.collection.query(
-            query_texts=[query_text],
-            n_results=n_results,
-            where=where
-        )
-        
-        # Format results
-        formatted_results = []
-        if results['documents'] and results['documents'][0]:
-            for i in range(len(results['documents'][0])):
-                formatted_results.append({
-                    'text': results['documents'][0][i],
-                    'metadata': results['metadatas'][0][i] if results['metadatas'] else {},
-                    'distance': results['distances'][0][i] if 'distances' in results else None,
-                    'relevance_score': 1 - results['distances'][0][i] if 'distances' in results else None
-                })
-        
-        return formatted_results
-    
-    def get_tips_for_activity_type(
-        self,
-        activity_type: str,
-        n_results: int = 3
-    ) -> List[Dict[str, Any]]:
-        """Get relevant tips for a specific activity type"""
-        query = f"best practices and tips for visiting {activity_type}"
-        
-        # Try with filter first
-        try:
-            results = self.query(
-                query_text=query,
-                n_results=n_results,
-                where={"applicable_to": activity_type}
-            )
-            if results:
-                return results
-        except:
-            pass
-        
-        # Fallback to query without filter
-        return self.query(query_text=query, n_results=n_results)
-    
-    def get_budget_wisdom(self, budget_range: BudgetRange) -> Dict[str, Any]:
-        """Get budget-specific wisdom"""
-        query = f"budget tips and advice for {budget_range.value} budget travelers"
-        
-        try:
-            results = self.query(
-                query_text=query,
-                n_results=3,
-                where={"constraint_type": "budget"}
-            )
-        except:
-            results = self.query(query_text=query, n_results=3)
-        
-        if results:
-            return {
-                'wisdom': results[0]['text'],
-                'metadata': results[0]['metadata'],
-                'additional_tips': [r['text'] for r in results[1:]]
+    def _load_place_knowledge(self) -> Dict[str, Dict]:
+        """Load place-specific knowledge"""
+        return {
+            'shaniwar_wada': {
+                'name': 'Shaniwar Wada',
+                'best_time': 'Early morning (7-9 AM) to avoid crowds, or evening for light show',
+                'duration_tip': 'Allow 1.5-2 hours for thorough exploration',
+                'tips': [
+                    'Light and sound show at 7 PM daily (₹25 per person)',
+                    'Photography allowed but no flash inside historical sections',
+                    'Wear comfortable walking shoes - lots of stairs and uneven surfaces',
+                    'Entry fee: ₹5 for Indians, ₹300 for foreigners',
+                    'Closed on Mondays',
+                    'Best photo spots: Main entrance, fountain courtyard'
+                ],
+                'insider': [
+                    'Visit the Hazari Karanje (fountain) early morning when light is perfect',
+                    'Local guides available at entrance for ₹200-300',
+                    'Combine with nearby Dagdusheth Temple (15 min walk)'
+                ],
+                'avoid': 'Weekends and public holidays get very crowded',
+                'nearby': 'Dagdusheth Ganpati Temple, Tulsi Baug Market',
+                'season_tips': {
+                    'summer': 'Visit early morning before 10 AM - gets very hot',
+                    'monsoon': 'Beautiful gardens but carry umbrella',
+                    'winter': 'Perfect weather for exploring'
+                }
+            },
+            'aga_khan_palace': {
+                'name': 'Aga Khan Palace',
+                'best_time': 'Morning (9-11 AM) for better lighting and fewer crowds',
+                'duration_tip': 'Plan for 1-2 hours',
+                'tips': [
+                    'Major historical site related to Gandhi and freedom movement',
+                    'Photography allowed in gardens, restricted inside museum',
+                    'Entry fee: ₹25 for Indians, ₹300 for foreigners',
+                    'Open 9 AM - 5:30 PM daily',
+                    'Audio guides available for ₹50'
+                ],
+                'insider': [
+                    'Visit the Gandhi memorial and Kasturba Gandhi Samadhi',
+                    'Beautiful Italian-style gardens perfect for photography',
+                    'Small cafe inside for refreshments'
+                ],
+                'avoid': 'Tuesday afternoons - maintenance work',
+                'nearby': 'Koregaon Park, Osho Ashram',
+                'season_tips': {
+                    'monsoon': 'Gardens are lush and beautiful',
+                    'winter': 'Best time to visit, pleasant weather'
+                }
+            },
+            'dagdusheth_temple': {
+                'name': 'Dagdusheth Halwai Ganpati Temple',
+                'best_time': 'Early morning (6-8 AM) for peaceful darshan, avoid evenings (crowded)',
+                'duration_tip': '30-45 minutes',
+                'tips': [
+                    'Remove shoes before entering (free locker facility)',
+                    'Free darshan, donations voluntary',
+                    'Dress modestly - cover shoulders and knees',
+                    'No photography inside temple',
+                    'Famous during Ganesh Chaturthi (August-September)'
+                ],
+                'insider': [
+                    'Accept the prasad (blessed offering) - modak or ladoo',
+                    'Visit the smaller temples in the complex',
+                    'Extremely crowded on Tuesdays - Ganesh holy day'
+                ],
+                'avoid': 'Tuesday evenings and festival days if you want quick darshan',
+                'nearby': 'Shaniwar Wada (10 min walk), Tulsi Baug market',
+                'season_tips': {
+                    'festival': 'Ganesh Chaturthi (Aug-Sep) - incredible decorations but 2-3 hour wait'
+                }
+            },
+            'saras_baug': {
+                'name': 'Saras Baug',
+                'best_time': 'Early morning (6-8 AM) or evening (5-7 PM)',
+                'duration_tip': '45 minutes to 1 hour',
+                'tips': [
+                    'Free entry to garden, small fee for temple',
+                    'Popular jogging and walking spot',
+                    'Boating available (₹50 per person)',
+                    'Food stalls outside the garden',
+                    'Well-maintained children play area'
+                ],
+                'insider': [
+                    'Visit Talyatla Ganesh temple inside the garden',
+                    'Best for morning walks or evening relaxation',
+                    'Street food vendors outside serve excellent vada pav'
+                ],
+                'avoid': 'Midday heat in summer',
+                'nearby': 'Parvati Hill, Sinhagad Road eateries'
+            },
+            'pataleshwar_caves': {
+                'name': 'Pataleshwar Cave Temple',
+                'best_time': 'Morning (8-11 AM) or late afternoon (4-6 PM)',
+                'duration_tip': '30-45 minutes',
+                'tips': [
+                    'Ancient rock-cut cave temple from 8th century',
+                    'Free entry',
+                    'Remove shoes before entering',
+                    'Cool interior even in summer',
+                    'Photography allowed'
+                ],
+                'insider': [
+                    'Notice the Nandi sculpture carved from single rock',
+                    'Peaceful spot in middle of busy city',
+                    'Located right in Shivajinagar - combine with shopping'
+                ],
+                'nearby': 'Shivajinagar market, JM Road shopping',
+                'season_tips': {
+                    'monsoon': 'Cave stays dry and cool'
+                }
+            },
+            'sinhagad_fort': {
+                'name': 'Sinhagad Fort',
+                'best_time': 'Early morning (6-9 AM) for sunrise and cool weather',
+                'duration_tip': '2-3 hours including trek',
+                'tips': [
+                    'Located 30 km from Pune - plan transport',
+                    'Can trek up (1.5 hours) or drive/take shared jeep',
+                    'Wear good trekking shoes',
+                    'Carry water - limited shops at top',
+                    'Entry fee: ₹25',
+                    'Famous for kanda bhaji (onion fritters) and mastani'
+                ],
+                'insider': [
+                    'Start trek at 6 AM to avoid heat',
+                    'Try the famous "Sinhagad kanda bhaji" at top',
+                    'Visit Tanaji memorial',
+                    'Monsoon: Extremely beautiful but slippery - be careful'
+                ],
+                'avoid': 'Midday heat in summer, weekends get very crowded',
+                'season_tips': {
+                    'monsoon': 'Spectacular views but very slippery - trek carefully',
+                    'winter': 'Perfect trekking weather',
+                    'summer': 'Only go very early morning'
+                }
             }
-        
-        return {}
+        }
     
-    def get_timing_tips(self, activity_type: str) -> List[str]:
-        """Get timing-related tips for activity type"""
-        try:
-            results = self.query(
-                query_text=f"best time to visit {activity_type}",
-                n_results=3,
-                where={"category": "timing"}
-            )
-        except:
-            results = self.query(
-                query_text=f"best time to visit {activity_type}",
-                n_results=3
-            )
-        
-        return [r['text'] for r in results]
-    
-    def get_general_tips(
+    def get_intelligent_tips(
         self,
-        categories: List[str] = None,
-        n_results: int = 5
-    ) -> List[Dict[str, Any]]:
-        """Get general travel tips"""
-        if categories:
-            all_tips = []
-            for category in categories:
-                try:
-                    results = self.query(
-                        query_text=f"travel tips for {category}",
-                        n_results=2,
-                        where={"category": category}
-                    )
-                except:
-                    results = self.query(
-                        query_text=f"travel tips for {category}",
-                        n_results=2
-                    )
-                all_tips.extend(results)
-            return all_tips[:n_results]
-        else:
-            query = "essential travel tips and best practices"
-            return self.query(query_text=query, n_results=n_results)
+        place_name: str,
+        category: str,
+        visit_time: str,
+        duration_hours: float,
+        city: str = "Pune",
+        budget_range: str = "mid-range",
+        pace: str = "moderate",
+        user_interests: List[str] = None
+    ) -> Dict[str, Any]:
+        """Generate intelligent, context-aware tips for a specific place"""
+        normalized_name = self._normalize_place_name(place_name)
+        
+        if normalized_name in self.place_knowledge:
+            return self._generate_specific_tips(
+                normalized_name, visit_time, duration_hours, budget_range, pace
+            )
+        
+        return self._generate_category_tips(
+            place_name, category, visit_time, duration_hours, 
+            city, budget_range, pace
+        )
     
-    def get_pace_guidance(self, pace: PacePreference) -> Dict[str, Any]:
-        """Get guidance for trip pace"""
-        try:
-            results = self.query(
-                query_text=f"travel planning for {pace.value} pace",
-                n_results=1,
-                where={"pace_type": pace.value}
-            )
-        except:
-            results = self.query(
-                query_text=f"travel planning for {pace.value} pace",
-                n_results=1
-            )
+    def _normalize_place_name(self, name: str) -> str:
+        """Normalize place name for lookup"""
+        name_lower = name.lower()
         
-        if results:
-            return {
-                'guidance': results[0]['text'],
-                'metadata': results[0]['metadata']
+        mapping = {
+            'shaniwar wada': 'shaniwar_wada',
+            'shaniwarwada': 'shaniwar_wada',
+            'aga khan palace': 'aga_khan_palace',
+            'agakhan palace': 'aga_khan_palace',
+            'dagdusheth': 'dagdusheth_temple',
+            'dagdusheth ganpati': 'dagdusheth_temple',
+            'dagdusheth halwai': 'dagdusheth_temple',
+            'saras baug': 'saras_baug',
+            'sarasbaug': 'saras_baug',
+            'pataleshwar': 'pataleshwar_caves',
+            'pataleshwar cave': 'pataleshwar_caves',
+            'sinhagad': 'sinhagad_fort',
+            'sinhgad fort': 'sinhagad_fort',
+        }
+        
+        for key, value in mapping.items():
+            if key in name_lower:
+                return value
+        
+        return name_lower.replace(' ', '_')
+    
+    def _generate_specific_tips(
+        self,
+        place_key: str,
+        visit_time: str,
+        duration_hours: float,
+        budget_range: str,
+        pace: str
+    ) -> Dict[str, Any]:
+        """Generate tips from specific place knowledge"""
+        place_data = self.place_knowledge[place_key]
+        time_category = self._categorize_time(visit_time)
+        
+        tips = []
+        
+        if 'best_time' in place_data:
+            tips.append(f"⏰ {place_data['best_time']}")
+        
+        if 'tips' in place_data:
+            tips.extend([f"• {tip}" for tip in place_data['tips'][:3]])
+        
+        if 'insider' in place_data:
+            tips.extend([f"💎 {tip}" for tip in place_data['insider'][:2]])
+        
+        if 'avoid' in place_data and time_category in ['afternoon', 'weekend']:
+            tips.append(f"⚠️ {place_data['avoid']}")
+        
+        if 'nearby' in place_data:
+            tips.append(f"📍 Nearby: {place_data['nearby']}")
+        
+        if 'duration_tip' in place_data:
+            tips.append(f"⌚ {place_data['duration_tip']}")
+        
+        return {
+            'place_name': place_data['name'],
+            'tips': tips,
+            'tip_type': 'place_specific',
+            'confidence': 'high',
+            'source': 'curated_knowledge'
+        }
+    
+    def _generate_category_tips(
+        self,
+        place_name: str,
+        category: str,
+        visit_time: str,
+        duration_hours: float,
+        city: str,
+        budget_range: str,
+        pace: str
+    ) -> Dict[str, Any]:
+        """Generate intelligent category-based tips"""
+        time_category = self._categorize_time(visit_time)
+        
+        category_tips = {
+            'museum': {
+                'general': [
+                    '• Arrive within first hour of opening for fewer crowds',
+                    '• Photography rules vary - check at entrance',
+                    '• Allow minimum 1.5-2 hours for proper exploration'
+                ],
+                'timing': {
+                    'morning': '• Perfect timing - museums are less crowded in mornings',
+                    'afternoon': '• Consider taking breaks - museum fatigue is real',
+                    'evening': '• Check closing time - museums typically close by 5-6 PM'
+                },
+                'budget': {
+                    'budget': '• Many museums offer student/senior discounts',
+                    'luxury': '• Consider hiring a private guide for deeper insights'
+                }
+            },
+            'temple': {
+                'general': [
+                    '• Remove shoes before entering (locker facilities usually free)',
+                    '• Dress modestly - shoulders and knees covered',
+                    '• No photography inside temple premises',
+                    '• Accept prasad (blessed offering) if offered'
+                ],
+                'timing': {
+                    'morning': '• Excellent choice - early morning darshan is peaceful',
+                    'afternoon': '• Temples may be less crowded now',
+                    'evening': '⚠️ Evening aarti times can be very crowded (usually 6-8 PM)'
+                },
+                'insider': [
+                    '💎 Tuesday is considered auspicious for Ganesh temples - expect crowds',
+                    '💎 Donate in the designated donation box if you wish'
+                ]
+            },
+            'park': {
+                'general': [
+                    '• Best during early morning or late evening',
+                    '• Carry water bottle and sunscreen',
+                    '• Great for relaxation between activities'
+                ],
+                'timing': {
+                    'morning': '• Perfect time for parks - cool and pleasant',
+                    'afternoon': '⚠️ Can be very hot - seek shaded areas',
+                    'evening': '• Lovely time for parks - evening breeze and sunset'
+                },
+                'pace': {
+                    'relaxed': '• Perfect for your pace - enjoy the tranquility',
+                    'packed': '• Quick visit recommended - 30-45 minutes'
+                }
+            },
+            'historical': {
+                'general': [
+                    '• Wear comfortable walking shoes',
+                    '• Carry water - historical sites often lack facilities',
+                    '• Consider hiring a guide for historical context'
+                ],
+                'timing': {
+                    'morning': '• Ideal timing - cooler weather for exploring',
+                    'afternoon': '⚠️ Can be hot - carry hat/cap and water',
+                    'evening': '• Check closing time - many close by 6 PM'
+                }
+            },
+            'shopping': {
+                'general': [
+                    '• Bargaining is common in local markets',
+                    '• Fixed prices in malls and branded stores',
+                    '• Carry reusable bags'
+                ],
+                'timing': {
+                    'morning': '• Shops may just be opening - some open by 11 AM',
+                    'afternoon': '• Good time - shops are less crowded',
+                    'evening': '• Peak shopping hours - expect crowds'
+                },
+                'budget': {
+                    'budget': '• Local markets offer better prices than malls',
+                    'luxury': '• Premium brands available in major malls'
+                }
+            },
+            'landmark': {
+                'general': [
+                    '• Research viewpoints and photo spots beforehand',
+                    '• Check if advance tickets are required',
+                    '• Plan for crowds at popular landmarks'
+                ],
+                'timing': {
+                    'morning': '• Excellent for photography - good natural light',
+                    'afternoon': '• Harsh sunlight - photos may have strong shadows',
+                    'evening': '• Great for golden hour photography'
+                }
+            },
+            'restaurant': {
+                'general': [
+                    '• Book popular restaurants in advance',
+                    '• Ask locals for authentic recommendations',
+                    '• Try local specialties'
+                ],
+                'timing': {
+                    'breakfast': f'• {visit_time} - Good timing for breakfast',
+                    'lunch': f'• {visit_time} - Lunch hour, may be crowded',
+                    'dinner': f'• {visit_time} - Dinner time, book ahead if popular'
+                },
+                'budget': {
+                    'budget': '• Local eateries offer authentic food at better prices',
+                    'luxury': '• Fine dining experience - dress code may apply'
+                }
             }
+        }
         
-        return {}
+        tips = []
+        cat_tips = category_tips.get(category, category_tips.get('landmark', {}))
+        
+        if 'general' in cat_tips:
+            tips.extend(cat_tips['general'][:3])
+        
+        if 'timing' in cat_tips and time_category in cat_tips['timing']:
+            tips.append(cat_tips['timing'][time_category])
+        
+        if 'budget' in cat_tips and budget_range in cat_tips['budget']:
+            tips.append(f"💰 {cat_tips['budget'][budget_range]}")
+        
+        if 'pace' in cat_tips and pace in cat_tips['pace']:
+            tips.append(cat_tips['pace'][pace])
+        
+        if 'insider' in cat_tips:
+            tips.extend(cat_tips['insider'][:1])
+        
+        return {
+            'place_name': place_name,
+            'tips': tips[:5],
+            'tip_type': 'category_based',
+            'confidence': 'medium',
+            'source': 'intelligent_generation'
+        }
+    
+    def _categorize_time(self, visit_time: str) -> str:
+        """Categorize time of day"""
+        try:
+            hour = int(visit_time.split(':')[0])
+            if 5 <= hour < 12:
+                return 'morning'
+            elif 12 <= hour < 17:
+                return 'afternoon'
+            else:
+                return 'evening'
+        except:
+            return 'morning'
+    
+    def add_place_knowledge(self, place_data: Dict[str, Any]) -> bool:
+        """Add new place-specific knowledge"""
+        try:
+            place_key = self._normalize_place_name(place_data['name'])
+            self.place_knowledge[place_key] = place_data
+            logger.info(f"Added knowledge for {place_data['name']}")
+            return True
+        except Exception as e:
+            logger.error(f"Error adding place knowledge: {e}")
+            return False
+    
+    # Legacy methods for backward compatibility
+    def get_tips_for_activity_type(self, activity_type: str, n_results: int = 3) -> List[Dict[str, Any]]:
+        """Legacy method - returns generic tips"""
+        tips = self._generate_category_tips(
+            place_name="Generic " + activity_type,
+            category=activity_type,
+            visit_time="09:00",
+            duration_hours=1.5,
+            city="Unknown",
+            budget_range="mid-range",
+            pace="moderate"
+        )
+        return [{'text': tip} for tip in tips['tips']]
     
     def enrich_activity_with_tips(
         self,
         activity_name: str,
         activity_type: str,
-        category: str
+        category: str,
+        visit_time: str = "09:00",
+        duration_hours: float = 1.5,
+        city: str = "Pune",
+        budget_range: str = "mid-range",
+        pace: str = "moderate"
     ) -> Dict[str, Any]:
-        """Get relevant tips to enrich an activity"""
-        
-        # Normalize activity type
-        type_mapping = {
-            'museum': 'museum',
-            'art_gallery': 'museum',
-            'tourist_attraction': 'landmark',
-            'point_of_interest': 'landmark',
-            'restaurant': 'restaurant',
-            'cafe': 'restaurant',
-            'park': 'park',
-            'church': 'religious_site',
-            'place_of_worship': 'religious_site',
-            'shopping_mall': 'shopping',      # ✅ Add this
-            'store': 'shopping',              # ✅ Add this
-            'market': 'market'
-        }
-        
-        normalized_type = type_mapping.get(activity_type, category)
-        
-        if normalized_type == 'shopping':
-            # Get shopping-specific tips, avoid food mentions
-            tips = self.get_tips_for_activity_type('shopping_mall', n_results=2)
-        elif normalized_type == 'restaurant':
-            tips = self.get_tips_for_activity_type('restaurant', n_results=2)
-        else:
-            tips = self.get_tips_for_activity_type(normalized_type, n_results=2)
-        
-        timing_tips = self.get_timing_tips(normalized_type)
-        
-        enrichment = {
-            'general_tip': tips[0]['text'] if tips else None,
-            'timing_tip': timing_tips[0] if timing_tips else None,
-            'best_practices': []
-        }
-        
-        # Extract best practices from metadata if available
-        if tips and 'best_practices' in tips[0].get('metadata', {}):
-            enrichment['best_practices'] = tips[0]['metadata']['best_practices']
-        
-        return enrichment
-    
-    def answer_question(
-        self,
-        question: str,
-        n_results: int = 3
-    ) -> Dict[str, Any]:
-        """Answer a general travel question"""
-        
-        # Retrieve relevant documents
-        results = self.query(query_text=question, n_results=n_results)
-        
-        if not results:
-            return {
-                "question": question,
-                "answer": "I don't have specific information about that. However, I recommend researching the destination's official tourism website or checking recent traveler reviews.",
-                "confidence": 0.0,
-                "sources": []
-            }
-        
-        # Generate answer from top results
-        answer = self._generate_answer(question, results)
-        
-        # Calculate confidence
-        confidence = sum(r['relevance_score'] for r in results if r['relevance_score']) / len(results) if results else 0.0
-        
-        return {
-            "question": question,
-            "answer": answer,
-            "confidence": confidence,
-            "sources": results[:2]
-        }
-    
-    def _generate_answer(self, question: str, context_docs: List[Dict]) -> str:
-        """Generate answer from retrieved context"""
-        if not context_docs:
-            return "I couldn't find relevant information to answer your question."
-        
-        question_lower = question.lower()
-        
-        # Combine top results
-        tips = []
-        for doc in context_docs[:3]:
-            tips.append(doc['text'])
-        
-        # Build answer based on question type
-        if any(word in question_lower for word in ['best time', 'when', 'timing']):
-            answer = "**Timing Recommendations:**\n\n" + "\n\n".join(f"• {tip}" for tip in tips)
-        
-        elif any(word in question_lower for word in ['budget', 'cheap', 'save money', 'cost']):
-            answer = "**Budget Tips:**\n\n" + "\n\n".join(f"• {tip}" for tip in tips)
-        
-        elif any(word in question_lower for word in ['how to', 'best way', 'should i']):
-            answer = "**Best Practices:**\n\n" + "\n\n".join(f"• {tip}" for tip in tips)
-        
-        else:
-            answer = "**Travel Wisdom:**\n\n" + "\n\n".join(f"• {tip}" for tip in tips)
-        
-        return answer
-    
-    def clear_collection(self):
-        """Clear all documents from the collection"""
-        try:
-            self.client.delete_collection(name="universal_travel_wisdom")
-            self.collection = self.client.get_or_create_collection(
-                name="universal_travel_wisdom",
-                metadata={"hnsw:space": "cosine"}
-            )
-            logger.info("Collection cleared successfully")
-        except Exception as e:
-            logger.error(f"Error clearing collection: {e}")
+        """Enhanced enrichment with intelligent tips"""
+        return self.get_intelligent_tips(
+            place_name=activity_name,
+            category=category,
+            visit_time=visit_time,
+            duration_hours=duration_hours,
+            city=city,
+            budget_range=budget_range,
+            pace=pace
+        )
     
     def get_collection_stats(self) -> Dict[str, Any]:
-        """Get statistics about the knowledge base"""
-        try:
-            count = self.collection.count()
-            return {
-                "total_documents": count,
-                "collection_name": self.collection.name,
-                "embedding_model": "ChromaDB Default",
-                "type": "universal_travel_wisdom"
-            }
-        except Exception as e:
-            logger.error(f"Error getting collection stats: {e}")
-            return {"error": str(e)}
+        """Get stats"""
+        return {
+            "total_places": len(self.place_knowledge),
+            "type": "intelligent_context_aware",
+            "embedding_model": "ChromaDB Default",
+            "places_covered": list(self.place_knowledge.keys())
+        }
+
+
+# Maintain backward compatibility
+RAGService = IntelligentRAGService

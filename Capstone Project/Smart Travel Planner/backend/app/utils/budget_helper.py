@@ -1,5 +1,5 @@
 """
-Budget calculation with SMART, REALISTIC pricing
+Budget calculation with smart, realistic pricing
 """
 from app.models.user_input import BudgetRange
 import random
@@ -8,23 +8,20 @@ import random
 class BudgetHelper:
     """Helper with realistic Indian pricing"""
     
-    # Realistic price ranges for Indian attractions (in INR)
+    # Realistic price ranges for Indian attractions (INR)
     INDIAN_PRICING = {
-        # Museums & Historical Sites
         'museum': {
-            BudgetRange.LOW: (50, 200),      # Government museums
-            BudgetRange.MEDIUM: (150, 400),   # Mid-tier museums
-            BudgetRange.HIGH: (300, 800)      # Premium/private
+            BudgetRange.LOW: (50, 200),
+            BudgetRange.MEDIUM: (150, 400),
+            BudgetRange.HIGH: (300, 800)
         },
         'art_gallery': {
             BudgetRange.LOW: (0, 150),
             BudgetRange.MEDIUM: (100, 300),
             BudgetRange.HIGH: (200, 600)
         },
-        
-        # Religious Sites
         'church': {
-            BudgetRange.LOW: (0, 50),         # Usually free
+            BudgetRange.LOW: (0, 50),
             BudgetRange.MEDIUM: (0, 100),
             BudgetRange.HIGH: (0, 200)
         },
@@ -38,41 +35,31 @@ class BudgetHelper:
             BudgetRange.MEDIUM: (0, 100),
             BudgetRange.HIGH: (50, 200)
         },
-        
-        # Forts & Monuments
         'tourist_attraction': {
             BudgetRange.LOW: (100, 300),
             BudgetRange.MEDIUM: (200, 600),
             BudgetRange.HIGH: (400, 1200)
         },
-        
-        # Parks & Gardens
         'park': {
-            BudgetRange.LOW: (0, 50),         # Most parks free
+            BudgetRange.LOW: (0, 50),
             BudgetRange.MEDIUM: (20, 100),
             BudgetRange.HIGH: (50, 200)
         },
-        
-        # Shopping
         'shopping_mall': {
-            BudgetRange.LOW: (200, 500),      # Window shopping budget
+            BudgetRange.LOW: (200, 500),
             BudgetRange.MEDIUM: (500, 1500),
             BudgetRange.HIGH: (1000, 3000)
         },
-        
-        # Food & Dining
         'restaurant': {
-            BudgetRange.LOW: (150, 400),      # Local eateries
-            BudgetRange.MEDIUM: (400, 1200),  # Good restaurants
-            BudgetRange.HIGH: (1000, 3000)    # Fine dining
+            BudgetRange.LOW: (150, 400),
+            BudgetRange.MEDIUM: (400, 1200),
+            BudgetRange.HIGH: (1000, 3000)
         },
         'cafe': {
             BudgetRange.LOW: (100, 250),
             BudgetRange.MEDIUM: (200, 500),
             BudgetRange.HIGH: (400, 800)
         },
-        
-        # Default fallback
         'default': {
             BudgetRange.LOW: (100, 300),
             BudgetRange.MEDIUM: (250, 600),
@@ -80,12 +67,9 @@ class BudgetHelper:
         }
     }
     
-    # Budget ranges - TOTAL TRIP
+    # Budget ranges - total trip
     BUDGET_RANGES = {
         BudgetRange.LOW: {
-            'min': 10000,
-            'max': 30000,
-            'average': 20000,
             'per_day_avg': 2500,
             'breakdown': {
                 'accommodation': 600,
@@ -95,9 +79,6 @@ class BudgetHelper:
             }
         },
         BudgetRange.MEDIUM: {
-            'min': 30000,
-            'max': 60000,
-            'average': 45000,
             'per_day_avg': 6000,
             'breakdown': {
                 'accommodation': 2000,
@@ -107,9 +88,6 @@ class BudgetHelper:
             }
         },
         BudgetRange.HIGH: {
-            'min': 60000,
-            'max': 150000,
-            'average': 100000,
             'per_day_avg': 12000,
             'breakdown': {
                 'accommodation': 4500,
@@ -128,50 +106,24 @@ class BudgetHelper:
         place_types: list = None,
         place_name: str = None
     ) -> float:
-        """
-        Smart cost estimation with realistic variance
-        
-        Args:
-            price_level: Google Maps price level (0-4) or None
-            budget_range: User's budget category
-            place_types: List of place types from Google
-            place_name: Name of the place (for special cases)
-            
-        Returns:
-            Realistic cost in INR
-        """
-        
-        # Determine category from place types
+        """Smart cost estimation with realistic variance"""
         category = cls._get_pricing_category(place_types)
-        
-        # Get price range for this category + budget
         price_range = cls.INDIAN_PRICING.get(category, cls.INDIAN_PRICING['default'])
         min_price, max_price = price_range.get(budget_range, (100, 500))
         
-        # Add realistic variance (not always the same!)
+        # Use Google's price level or random variance
         if price_level is not None:
-            # Use Google's price level as a guide
-            price_multipliers = {
-                0: 0.0,   # Free
-                1: 0.3,   # Cheap
-                2: 0.6,   # Moderate
-                3: 0.85,  # Expensive
-                4: 1.0    # Very expensive
-            }
-            multiplier = price_multipliers.get(price_level, 0.6)
+            multipliers = {0: 0.0, 1: 0.3, 2: 0.6, 3: 0.85, 4: 1.0}
+            multiplier = multipliers.get(price_level, 0.6)
         else:
-            # Random realistic variance
             multiplier = random.uniform(0.4, 0.9)
         
-        # Calculate cost
+        # Calculate with realistic variance
         cost_range = max_price - min_price
         estimated_cost = min_price + (cost_range * multiplier)
-        
-        # Add small random variance (±10%) for realism
         variance = random.uniform(-0.1, 0.1)
         final_cost = estimated_cost * (1 + variance)
         
-        # Round to nearest 10
         return round(final_cost / 10) * 10
     
     @classmethod
@@ -180,7 +132,6 @@ class BudgetHelper:
         if not place_types:
             return 'default'
         
-        # Priority mapping
         type_mapping = {
             'museum': 'museum',
             'art_gallery': 'art_gallery',
@@ -203,13 +154,16 @@ class BudgetHelper:
     
     @classmethod
     def get_daily_budget(cls, budget_range: BudgetRange) -> float:
+        """Get average daily budget"""
         return cls.BUDGET_RANGES[budget_range]['per_day_avg']
     
     @classmethod
     def get_total_budget(cls, budget_range: BudgetRange, num_days: int) -> float:
+        """Calculate total budget for trip"""
         return cls.get_daily_budget(budget_range) * num_days
     
     @classmethod
     def get_activity_budget(cls, budget_range: BudgetRange, num_days: int) -> float:
+        """Calculate total activities budget"""
         daily = cls.BUDGET_RANGES[budget_range]['breakdown']['activities']
         return daily * num_days
