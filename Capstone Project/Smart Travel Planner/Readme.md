@@ -1,6 +1,6 @@
 # ✈️ Smart Travel Planner
 
-An AI-powered travel itinerary planner that uses constraint-based optimization, Google Maps integration, and RAG (Retrieval-Augmented Generation) to create personalized, budget-optimized travel plans.
+An AI-powered travel itinerary planner that uses constraint-based optimization, Google Maps integration, and a context-aware knowledge system with a vector-ready RAG architecture to create personalized, budget-optimized travel plans.
 ---
 
 ## 🌟 Features
@@ -9,7 +9,7 @@ An AI-powered travel itinerary planner that uses constraint-based optimization, 
 - **🤖 AI-Powered Planning** - Intelligent itinerary generation using constraint satisfaction algorithms
 - **💰 Hybrid Budget System** - Choose quick ranges (Budget/Comfortable/Premium) or enter custom amounts
 - **📍 Google Maps Integration** - Real-time place data, ratings, and locations
-- **🧠 RAG System** - Travel tips and best practices from curated knowledge base
+- **🧠 Context-Aware Knowledge System** (Rule-first, deterministic travel tips with a vector-ready RAG architecture)
 - **⭐ Must-Visit Guarantee** - Ensures your must-see places are included
 - **🍽️ Smart Meal Scheduling** - Meals scheduled at proper times (8 AM, 1 PM, 8 PM)
 - **🎯 Interest-Based Matching** - Activities tailored to your preferences
@@ -45,9 +45,9 @@ An AI-powered travel itinerary planner that uses constraint-based optimization, 
 │  └──┬────────────┬─────────────┬────────────────────────┘   │
 │     │            │             │                             │
 │  ┌──▼─────┐  ┌──▼──────┐  ┌──▼──────────┐                  │
-│  │Google  │  │  RAG    │  │ Constraint  │                  │
+│  │Google  │  │RAG Ready│  │ Constraint  │                  │
 │  │Maps API│  │ System  │  │   Solver    │                  │
-│  │        │  │(ChromaDB)│  │             │                  │
+│  │        │  │(Vector Ready)││           │                  │
 │  └────────┘  └─────────┘  └─────────────┘                  │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -72,11 +72,12 @@ An AI-powered travel itinerary planner that uses constraint-based optimization, 
    - Distance/time calculations
    - Real ratings and reviews
 
-4. **RAG System (ChromaDB)**
-   - 50+ universal travel tips
-   - Budget-specific wisdom
-   - Pace guidance
-   - Activity best practices
+4. **Context-Aware Knowledge System (ChromaDB – Vector-Ready)**
+   - Curated place-specific travel tips
+   - Category-based best practices (museum, temple, food, etc.)
+   - Budget- and pace-aware guidance
+   - Deterministic, rule-first tip generation
+   - Non-authoritative (does not affect planning decisions)
 
 5. **Constraint Solver**
    - Greedy scheduling algorithm
@@ -88,6 +89,27 @@ An AI-powered travel itinerary planner that uses constraint-based optimization, 
    - Multi-factor ranking (rating, interest match, budget, popularity)
    - Must-visit prioritization
    - Smart cost estimation
+  
+## 🧠 Why Embedding-Based RAG Is Intentionally Deferred
+
+    Although the system initializes ChromaDB, embedding-based retrieval is not currently used.
+    
+    This is an intentional design decision:
+    
+    - The itinerary planner is decision-critical (time, budget, feasibility)
+    - Determinism and predictability are prioritized over probabilistic retrieval
+    - All travel tips are non-authoritative and do not influence planning decisions
+    - Curated, place-specific knowledge provides higher precision than embeddings at current scale
+    
+    ChromaDB is included to establish a vector-ready architecture.
+    
+    Embedding-based RAG can be safely introduced later without refactoring the planner when:
+    - Knowledge volume grows significantly
+    - Data becomes unstructured or user-generated
+    - Tips remain clearly advisory, not decision-making
+    
+    This avoids premature complexity while preserving scalability.
+
 
 ---
 
@@ -367,7 +389,7 @@ Contributions are welcome! Please follow these steps:
 ## 🙏 Acknowledgments
 
 - **Google Maps Platform** - Location data and geocoding
-- **ChromaDB** - Vector database for RAG system
+- **ChromaDB** - Vector-ready persistence layer for future semantic retrieval
 - **Streamlit** - Frontend framework
 - **FastAPI** - Backend framework
 
